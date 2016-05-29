@@ -6,13 +6,14 @@ public class Govern : State
 {
     private StateMachine stateMachine;
     private GameController gameController;
-    private BattleController battleController;
+    private Battle battle;
 
     public GameObject mainMenu;
     public GameObject trainMenu;
     public GameObject upgradeMenu;
     public GameObject researchMenu;
     public GameObject ConfirmBattleMenu;
+    public GameObject battleBackground;
     public GameObject backButton;
     public GameObject gameOverMenu;
     public Text turnText;
@@ -35,6 +36,7 @@ public class Govern : State
     private bool upgradeMenuActive;
     private bool researchMenuActive;
     private bool ConfirmBattleActive;
+    private bool battleBackgroundActive;
     private bool backActive;
     private bool gameOverActive;
 
@@ -55,9 +57,9 @@ public class Govern : State
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
-        battleController = GetComponent<BattleController>();
+        battle = GetComponent<Battle>();
 
-        battleController.UpdateBoard();
+        battle.UpdateBoard();
         Debug.Log("Enter Govern");
         mainMenu.SetActive(true);
         mainMenuActive = true;
@@ -198,7 +200,25 @@ public class Govern : State
 
     public void ConfirmBattle()
     {
+        if (gameController.playerTurn == 1)
+        {
+            battle.attackingPlayer = 1;
+            battle.defendingPlayer = 2;
+        }
+        else if (gameController.playerTurn == 2)
+        {
+            battle.attackingPlayer = 2;
+            battle.defendingPlayer = 1;
+        }
 
+        DisableMainMenu();
+        backButton.SetActive(false);
+        backActive = false;
+        ConfirmBattleMenu.SetActive(false);
+        ConfirmBattleActive = false;
+        battleBackground.SetActive(true);
+        battleBackgroundActive = true;
+        stateMachine.SetState(StateID.Battle);
     }
 
     public void CancelBattle()
@@ -213,7 +233,10 @@ public class Govern : State
         {
             gameController.playerTurn = 2;
         }
-        else { gameController.playerTurn = 1; }
+        else if (gameController.playerTurn == 2)
+        {
+            gameController.playerTurn = 1;
+        }
         UpdateTurnText();
         stateMachine.SetState(StateID.Initialization);
     }
@@ -224,7 +247,10 @@ public class Govern : State
         {
             gameController.playerWin = 2;
         }
-        else { gameController.playerWin = 1; }
+        else if(gameController.playerTurn == 2)
+        {
+            gameController.playerWin = 1;
+        }
         GameOver();
     }
 
@@ -254,7 +280,6 @@ public class Govern : State
         {
             turnText.text = "Player 2's turn";
         }
-
     }
 
     //All Training Options
@@ -277,7 +302,7 @@ public class Govern : State
             }
         }
         UpdateMoneyTexts();
-        battleController.UpdateBoard();
+        battle.UpdateBoard();
     }
 
     public void TrainFootman()
@@ -299,7 +324,7 @@ public class Govern : State
             }
         }
         UpdateMoneyTexts();
-        battleController.UpdateBoard();
+        battle.UpdateBoard();
     }
 
     public void TrainBowman()
@@ -321,7 +346,7 @@ public class Govern : State
             }
         }
         UpdateMoneyTexts();
-        battleController.UpdateBoard();
+        battle.UpdateBoard();
     }
 
     public void TrainKnight()
@@ -343,7 +368,7 @@ public class Govern : State
             }
         }
         UpdateMoneyTexts();
-        battleController.UpdateBoard();
+        battle.UpdateBoard();
     }
 
     public void TrainLancer()
@@ -365,7 +390,7 @@ public class Govern : State
             }
         }
         UpdateMoneyTexts();
-        battleController.UpdateBoard();
+        battle.UpdateBoard();
     }
 
     //All Upgrade Options
@@ -376,6 +401,7 @@ public class Govern : State
             //If p1 money is higher than player 1's current cost of palaceUpgrade
             if (gameController.p1.money >= gameController.p1.palaceUpgradeCost[gameController.p1.palaceLevel - 1])
             {
+                gameController.p1.money -= gameController.p1.palaceUpgradeCost[gameController.p1.palaceLevel - 1];
                 gameController.p1.palaceLevel++;
                 gameController.p1.UpdatePalaceIncome();
             }
@@ -384,10 +410,12 @@ public class Govern : State
         {
             if (gameController.p2.money >= gameController.p2.palaceUpgradeCost[gameController.p2.palaceLevel - 1])
             {
+                gameController.p2.money -= gameController.p2.palaceUpgradeCost[gameController.p2.palaceLevel - 1];
                 gameController.p2.palaceLevel++;
                 gameController.p2.UpdatePalaceIncome();
             }
         }
+        UpdateMoneyTexts();
     }
 
     public void UpgradeBarrack()
@@ -397,6 +425,7 @@ public class Govern : State
             //If p1 money is higher than player 1's current cost of barracksUpgrade
             if (gameController.p1.money >= gameController.p1.barracksUpgradeCost[gameController.p1.barracksLevel - 1])
             {
+                gameController.p1.money -= gameController.p1.barracksUpgradeCost[gameController.p1.barracksLevel - 1];
                 gameController.p1.barracksLevel++;
             }
         }
@@ -404,9 +433,11 @@ public class Govern : State
         {
             if (gameController.p2.money >= gameController.p2.barracksUpgradeCost[gameController.p2.barracksLevel - 1])
             {
+                gameController.p2.money -= gameController.p2.barracksUpgradeCost[gameController.p2.barracksLevel -1];
                 gameController.p2.barracksLevel++;
             }
         }
+        UpdateMoneyTexts();
     }
 
     public void UpgradeAcademy()
@@ -421,6 +452,7 @@ public class Govern : State
             //If p1 money is higher than player 1's current cost of wallUpgrade
             if (gameController.p1.money >= gameController.p1.wallUpgradeCost[gameController.p1.wallLevel - 1])
             {
+                gameController.p1.money -= gameController.p1.wallUpgradeCost[gameController.p1.wallLevel - 1];
                 gameController.p1.wallLevel++;
                 gameController.p1.UpdateWallBonus();
             }
@@ -429,10 +461,12 @@ public class Govern : State
         {
             if (gameController.p2.money >= gameController.p2.wallUpgradeCost[gameController.p2.wallLevel - 1])
             {
+                gameController.p2.money -= gameController.p2.wallUpgradeCost[gameController.p2.wallLevel - 1];
                 gameController.p2.wallLevel++;
                 gameController.p2.UpdateWallBonus();
             }
         }
+        UpdateMoneyTexts();
     }
 
     //All Research Options
