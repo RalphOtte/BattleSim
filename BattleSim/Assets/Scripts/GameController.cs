@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
 {
     private StateMachine stateMachine;
     public int playerTurn;
+    public int playerWin;
     public Player p1;
     public Player p2;
 

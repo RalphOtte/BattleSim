@@ -6,17 +6,22 @@ public class BattleController : MonoBehaviour {
     public Player p1;
     public Player p2;
 
+    //All bools used to flag whether player has higher than 0 of a kind of unit
     bool p1HasPeasant;
     bool p1HasFootman;
     bool p1HasBowman;
     bool p1HasKnight;
     bool p1HasLancer;
+    bool p1HasWall;
 
     bool p2HasPeasant;
     bool p2HasFootman;
     bool p2HasBowman;
     bool p2HasKnight;
     bool p2HasLancer;
+    bool p2HasWall;
+
+    //ALL UNIT STATS COME HERE
 
     //Player 1 unit texts
     public GUIText p1PeasantText;
