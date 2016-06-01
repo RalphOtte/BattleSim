@@ -27,7 +27,37 @@ public class Battle : State
     bool p2HasLancer;
     bool p2HasWall;
 
+    private int peasantCountAtk;
+    private int footmanCountAtk;
+    private int bowmanCountAtk;
+    private int knightCountAtk;
+    private int lancerCountAtk;
+
+    private int peasantCountDef;
+    private int footmanCountDef;
+    private int bowmanCountDef;
+    private int knightCountDef;
+    private int lancerCountDef;
+    private int wallBonusDef;
+
+    private int peasantStronger; //1 = player 1, 2 = player 2 etc.
+    private int footmanStronger;
+    private int bowmanStronger;
+    private int knightStronger;
+    private int lancerStronger;
+
     //ALL UNIT STATS COME HERE
+    public int peasantAtk;
+    public int footmanAtk;
+    public int bowmanAtk;
+    public int knightAtk;
+    public int lancerAtk;
+
+    public int peasantDef;
+    public int footmanDef;
+    public int bowmanDef;
+    public int knightDef;
+    public int lancerDef;
 
     //Player 1 unit texts
     public GUIText p1PeasantText;
@@ -45,10 +75,19 @@ public class Battle : State
 
     public override void Enter()
     {
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
-        Debug.Log("Enter Battle");
-        ImportArmies();
+        Debug.Log("Entering Battle");
+        //ImportArmies();
     }
 
     public override void Act()
@@ -73,12 +112,40 @@ public class Battle : State
         p2KnightText.text = "" + p2.knightCount;
         p2LancerText.text = "" + p2.lancerCount;
 
-        Debug.Log("Board Updated");
+        Debug.Log("Troop Board Updated");
     }
 
     void ImportArmies()
     {
-        //When import is done:
+        if (attackingPlayer == 1)
+        {
+            peasantCountAtk = gameController.p1.peasantCount;
+            footmanCountAtk = gameController.p1.footmanCount;
+            bowmanCountAtk = gameController.p1.bowmanCount;
+            knightCountAtk = gameController.p1.knightCount;
+            lancerCountAtk = gameController.p1.lancerCount;
+
+            peasantCountDef = gameController.p2.peasantCount;
+            footmanCountDef = gameController.p2.footmanCount;
+            bowmanCountDef = gameController.p2.bowmanCount;
+            knightCountDef = gameController.p2.knightCount;
+            lancerCountDef = gameController.p2.lancerCount;
+        }
+        else if (attackingPlayer == 2)
+        {
+            peasantCountAtk = gameController.p2.peasantCount;
+            footmanCountAtk = gameController.p2.footmanCount;
+            bowmanCountAtk = gameController.p2.bowmanCount;
+            knightCountAtk = gameController.p2.knightCount;
+            lancerCountAtk = gameController.p2.lancerCount;
+
+            peasantCountDef = gameController.p1.peasantCount;
+            footmanCountDef = gameController.p1.footmanCount;
+            bowmanCountDef = gameController.p1.bowmanCount;
+            knightCountDef = gameController.p1.knightCount;
+            lancerCountDef = gameController.p1.lancerCount;
+        }
+        //When import is done
         BattleSequence();
     }
 
@@ -89,21 +156,55 @@ public class Battle : State
             Currently all battles are a 1:1 power subtraction from each unit type
             IDEA: Fill lists with all able unit types and subtract 1:1.
             IDEA: Show power of armies and make a calculation based off of that
-        </Summary> */ 
+        </Summary> */
+
+        if (peasantCountAtk >= peasantCountDef)
+        {
+            peasantStronger = 1;
+        }
+        else { peasantStronger = 2; }
+
+        if (footmanCountAtk >= footmanCountDef)
+        {
+            footmanStronger = 1;
+        }
+        else { footmanStronger = 2; }
+
+        if (bowmanCountAtk >= bowmanCountDef)
+        {
+            bowmanStronger = 1;
+        }
+        else { bowmanStronger = 2; }
+
+        if (knightCountAtk >= knightCountDef)
+        {
+            knightStronger = 1;
+        }
+        else { knightStronger = 2; }
+
+        if (lancerCountAtk >= lancerCountDef)
+        {
+            lancerStronger = 1;
+        }
+        else { lancerStronger = 2; }
 
         //When this method is done:
-        ShowBattleResults();
+        //ShowBattleResults();
     }
 
     void ShowBattleResults()
     {
         //Shows battle results with a projected "winner" of the battle.
         //When this method is done:
-        EndBattle();
+        //EndBattle();
     }
 
     void EndBattle()
     {
-        govern.EndTurn();
+        //If defending player still has troops:
+        //govern.EndTurn();
+
+        //If defending player has no troops lef:
+        //govern.GameOver();
     }
 }

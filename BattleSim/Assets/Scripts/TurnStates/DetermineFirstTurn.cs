@@ -11,7 +11,7 @@ public class DetermineFirstTurn : State
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
-        Debug.Log("Enter DetermineFirst");
+        Debug.Log("Determining which player starts...");
         
         playerTurn = Random.Range(0, 10);
         if (playerTurn < 5)

@@ -10,7 +10,7 @@ public class Initialization : State
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
-        Debug.Log("Entering turn initialization");
+        Debug.Log("Entering Turn Initialization");
         if (gameController.playerTurn == 1)
         {
             gameController.p1.money += gameController.p1.palaceCurrentIncome;

@@ -6,77 +6,35 @@ public class Govern : State
 {
     private StateMachine stateMachine;
     private GameController gameController;
-    private Battle battle;
 
-    public GameObject mainMenu;
-    public GameObject trainMenu;
-    public GameObject upgradeMenu;
-    public GameObject researchMenu;
-    public GameObject ConfirmBattleMenu;
-    public GameObject battleBackground;
-    public GameObject backButton;
-    public GameObject gameOverMenu;
-    public Text turnText;
-    public Text player1Money;
-    public Text player2Money;
+    public GameObject townScreen;
+    public GameObject palaceBuilding;
+    public GameObject barracksBuilding;
+    public GameObject academyBuilding;
+    public GameObject wallBuilding;
+    public GameObject builderBuilding;
+    public GameObject gatheringBuilding;
 
-    //Upgrade Texts
-    public Text palaceUpgradeCurrentLevel;
-    public Text barracksUpgradeCurrentLevel;
-    public Text academyUpgradeCurrentLevel;
-    public Text wallUpgradeCurrentLevel;
+    public GameObject giveUpButton;
+    public GameObject EndTurnButton;
 
-    public Text palaceUpgradeCostText;
-    public Text barracksUpgradeCostText;
-    public Text academyUpgradeCostText;
-    public Text wallUpgradeCostText;
+    private bool townScreenActive;
+    private bool palaceBuildingActive;
+    private bool barracksBuildingActive;
+    private bool academyBuildingActive;
+    private bool wallBuildingActive;
+    private bool builderBuildingActive;
+    private bool gatheringBuildingActive;
 
-    private bool mainMenuActive;
-    private bool trainMenuActive;
-    private bool upgradeMenuActive;
-    private bool researchMenuActive;
-    private bool ConfirmBattleActive;
-    private bool battleBackgroundActive;
-    private bool backActive;
-    private bool gameOverActive;
-
-    //Unit Train Costs
-    [SerializeField]private int peasantTrainCost;
-    [SerializeField]private int footmanTrainCost;
-    [SerializeField]private int bowmanTrainCost;
-    [SerializeField]private int knightTrainCost;
-    [SerializeField]private int lancerTrainCost;
-    //Research Money Cost
-    [SerializeField]private int footmanResearchCost;
-    [SerializeField]private int bowmanResearchCost;
-    [SerializeField]private int knightResearchCost;
-    [SerializeField]private int lancerResearchCost;
-    [SerializeField]private int wallResearchCost;
+    private bool giveUpButtonActive;
+    private bool endTurnButtonActive;
 
     public override void Enter()
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
-        battle = GetComponent<Battle>();
-
-        battle.UpdateBoard();
-        Debug.Log("Enter Govern");
-        mainMenu.SetActive(true);
-        mainMenuActive = true;
-        backButton.SetActive(false);
-        backActive = false;
-        UpdateTurnText();
-        UpdateMoneyTexts();
-
-        //Quick Solution
-        if (gameController.playerTurn == 1)
-        {
-            UpdateResearchTextsP1();
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            UpdateResearchTextsP2();
-        }
+        Debug.Log("Entering Govern Phase");
+        townScreenActive = true;
     }
 
     public override void Act()
@@ -87,65 +45,92 @@ public class Govern : State
     {
     }
 
+    void SwitchTownScreen()
+    {
+        if (townScreenActive == true)
+        {
+            townScreen.SetActive(false);
+            townScreenActive = false;
+        }
+        else { townScreen.SetActive(true); townScreenActive = true; }
+    }
+
+    public void PalaceMenu()
+    {
+        SwitchTownScreen();
+        palaceBuildingActive = true;
+        stateMachine.SetState(StateID.Palace);
+    }
+
+    public void BarracksMenu()
+    {
+        SwitchTownScreen();
+        barracksBuildingActive = true;
+        stateMachine.SetState(StateID.Train);
+    }
+
+    public void AcademyMenu()
+    {
+        SwitchTownScreen();
+        academyBuildingActive = true;
+        stateMachine.SetState(StateID.Research);
+    }
+
+    public void GatheringSquareMenu()
+    {
+        SwitchTownScreen();
+        gatheringBuildingActive = true;
+        stateMachine.SetState(StateID.GatheringSQ);
+    }
+
+    public void WallMenu()
+    {
+        SwitchTownScreen();
+        wallBuildingActive = true;
+        stateMachine.SetState(StateID.Wall);
+    }
+
+    public void BuilderMenu()
+    {
+        SwitchTownScreen();
+        builderBuildingActive = true;
+        stateMachine.SetState(StateID.Upgrade);
+    }
+    /*
     public void UpdateMoneyTexts()
     {
         player1Money.text = "Money: " + gameController.p1.money;
         player2Money.text = "Money: " + gameController.p2.money;
-    }
-
-    public void UpdateResearchTextsP1()
-    {
-        palaceUpgradeCurrentLevel.text = gameController.p1.palaceLevelText;
-        barracksUpgradeCurrentLevel.text = gameController.p1.barracksLevelText;
-        academyUpgradeCurrentLevel.text = gameController.p1.academyLevelText;
-        wallUpgradeCurrentLevel.text = gameController.p1.wallLevelText;
-
-        palaceUpgradeCostText.text = gameController.p1.palaceUpgradeCostText;
-        barracksUpgradeCostText.text = gameController.p1.barracksUpgradeCostText;
-        academyUpgradeCostText.text = gameController.p1.academyUpgradeCostText;
-        wallUpgradeCostText.text = gameController.p1.wallUpgradeCostText;
-    }
-
-    public void UpdateResearchTextsP2()
-    {
-        palaceUpgradeCurrentLevel.text = gameController.p2.palaceLevelText;
-        barracksUpgradeCurrentLevel.text = gameController.p2.barracksLevelText;
-        academyUpgradeCurrentLevel.text = gameController.p2.academyLevelText;
-        wallUpgradeCurrentLevel.text = gameController.p2.wallLevelText;
-
-        palaceUpgradeCostText.text = gameController.p2.palaceUpgradeCostText;
-        barracksUpgradeCostText.text = gameController.p2.barracksUpgradeCostText;
-        academyUpgradeCostText.text = gameController.p2.academyUpgradeCostText;
-        wallUpgradeCostText.text = gameController.p2.wallUpgradeCostText;
-    }
+    }*/
 
     //General Back Button
     public void Back()
     {
-        if (trainMenuActive == true)
+        if (barracksBuildingActive == true)
         {
-            trainMenu.SetActive(false);
-            trainMenuActive = false;
+            barracksBuildingActive = false;
         }
-        else if (upgradeMenuActive == true)
+        else if (builderBuildingActive == true)
         {
-            upgradeMenu.SetActive(false);
-            upgradeMenuActive = false;
+            builderBuildingActive = false;
         }
-        else if (researchMenuActive == true)
+        else if (academyBuildingActive == true)
         {
-            researchMenu.SetActive(false);
-            researchMenuActive = false;
+            academyBuildingActive = false;
         }
-        else if (ConfirmBattleActive == true)
+        else if (palaceBuildingActive == true)
         {
-            ConfirmBattleMenu.SetActive(false);
-            ConfirmBattleActive = false;
+            palaceBuildingActive = false;
         }
-        EnableMainMenu();
+        else if (wallBuildingActive == true)
+        {
+            wallBuildingActive = false;
+        }
+        SwitchTownScreen();
+        stateMachine.SetState(StateID.Govern);
 
     }
-
+    /*
     //All Menu Items
     void DisableMainMenu()
     {
@@ -194,8 +179,8 @@ public class Govern : State
     {
         //Battle
         DisableMainMenu();
-        ConfirmBattleMenu.SetActive(true);
-        ConfirmBattleActive = true;
+        confirmBattleMenu.SetActive(true);
+        confirmBattleActive = true;
     }
 
     public void ConfirmBattle()
@@ -214,8 +199,8 @@ public class Govern : State
         DisableMainMenu();
         backButton.SetActive(false);
         backActive = false;
-        ConfirmBattleMenu.SetActive(false);
-        ConfirmBattleActive = false;
+        confirmBattleMenu.SetActive(false);
+        confirmBattleActive = false;
         battleBackground.SetActive(true);
         battleBackgroundActive = true;
         stateMachine.SetState(StateID.Battle);
@@ -224,6 +209,11 @@ public class Govern : State
     public void CancelBattle()
     {
         Back();
+    }
+
+    public void SafePhase()
+    {
+        //InputField SafePhase string convert to int
     }
 
     public void EndTurn()
@@ -256,7 +246,7 @@ public class Govern : State
 
     public void GameOver()
     {
-
+        
     }
 
     public void BackToMain()
@@ -282,116 +272,6 @@ public class Govern : State
         }
     }
 
-    //All Training Options
-    public void TrainPeasant()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= peasantTrainCost)
-            {
-                gameController.p1.money -= peasantTrainCost;
-                gameController.p1.peasantCount = gameController.p1.peasantCount + (1 * gameController.p1.barracksLevel);
-            }
-        }
-        else if(gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= peasantTrainCost)
-            {
-                gameController.p2.money -= peasantTrainCost;
-                gameController.p2.peasantCount = gameController.p2.peasantCount + (1 * gameController.p2.barracksLevel);
-            }
-        }
-        UpdateMoneyTexts();
-        battle.UpdateBoard();
-    }
-
-    public void TrainFootman()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= footmanTrainCost && gameController.p1.footmanUnlocked)
-            {
-                gameController.p1.money -= footmanTrainCost;
-                gameController.p1.footmanCount = gameController.p1.footmanCount + (1 * gameController.p1.barracksLevel);
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= footmanTrainCost && gameController.p2.footmanUnlocked)
-            {
-                gameController.p2.money -= footmanTrainCost;
-                gameController.p2.footmanCount = gameController.p2.footmanCount + (1 * gameController.p2.barracksLevel);
-            }
-        }
-        UpdateMoneyTexts();
-        battle.UpdateBoard();
-    }
-
-    public void TrainBowman()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= bowmanTrainCost && gameController.p1.bowmanUnlocked)
-            {
-                gameController.p1.money -= bowmanTrainCost;
-                gameController.p1.bowmanCount = gameController.p1.bowmanCount + (1 * gameController.p1.barracksLevel);
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= bowmanTrainCost && gameController.p2.bowmanUnlocked)
-            {
-                gameController.p2.money -= bowmanTrainCost;
-                gameController.p2.bowmanCount = gameController.p2.bowmanCount + (1 * gameController.p2.barracksLevel);
-            }
-        }
-        UpdateMoneyTexts();
-        battle.UpdateBoard();
-    }
-
-    public void TrainKnight()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= knightTrainCost && gameController.p1.knightUnlocked)
-            {
-                gameController.p1.money -= knightTrainCost;
-                gameController.p1.knightCount = gameController.p1.knightCount + (1 * gameController.p1.barracksLevel);
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= knightTrainCost && gameController.p2.knightUnlocked)
-            {
-                gameController.p2.money -= knightTrainCost;
-                gameController.p2.knightCount = gameController.p2.knightCount + (1 * gameController.p2.barracksLevel);
-            }
-        }
-        UpdateMoneyTexts();
-        battle.UpdateBoard();
-    }
-
-    public void TrainLancer()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= lancerTrainCost && gameController.p1.lancerUnlocked)
-            {
-                gameController.p1.money -= lancerTrainCost;
-                gameController.p1.lancerCount = gameController.p1.lancerCount + (1 * gameController.p1.barracksLevel);
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= lancerTrainCost && gameController.p2.lancerUnlocked)
-            {
-                gameController.p2.money -= lancerTrainCost;
-                gameController.p2.lancerCount = gameController.p2.lancerCount + (1 * gameController.p2.barracksLevel);
-            }
-        }
-        UpdateMoneyTexts();
-        battle.UpdateBoard();
-    }
 
     //All Upgrade Options
     public void UpgradePalace()
@@ -574,4 +454,5 @@ public class Govern : State
         }
         UpdateMoneyTexts();
     }
+    */
 }

@@ -62,15 +62,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BattleController.cs" />
+    <Compile Include="Assets\Scripts\BattleSimTest.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\TextController.cs" />
     <Compile Include="Assets\Scripts\TurnStates\Battle.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\BattleResult.cs" />
     <Compile Include="Assets\Scripts\TurnStates\DetermineFirstTurn.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\EndTurn.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\GatheringSQ.cs" />
     <Compile Include="Assets\Scripts\TurnStates\Govern.cs" />
     <Compile Include="Assets\Scripts\TurnStates\Initialization.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\MatchSetup.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\Palace.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\Research.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\Train.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\Upgrade.cs" />
+    <Compile Include="Assets\Scripts\TurnStates\Wall.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
