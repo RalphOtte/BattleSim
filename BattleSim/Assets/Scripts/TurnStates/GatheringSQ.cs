@@ -7,12 +7,15 @@ public class GatheringSQ : State {
     private GameController gameController;
 
     public GameObject gatheringSQ;
+    public GameObject menu;
+    public GameObject confirmScreen;
 
     public override void Enter()
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
         gatheringSQ.SetActive(true);
+        confirmScreen.SetActive(false);
     }
 
     public override void Act()
@@ -23,8 +26,26 @@ public class GatheringSQ : State {
     {
     }
 
+    public void ConfirmScreen()
+    {
+        menu.SetActive(false);
+        confirmScreen.SetActive(true);
+    }
+
+    public void ConfirmBattle()
+    {
+
+    }
+
+    public void CancelBattle()
+    {
+        menu.SetActive(true);
+        confirmScreen.SetActive(false);
+    }
+
     public override void Leave()
     {
         gatheringSQ.SetActive(false);
     }
+
 }
