@@ -6,6 +6,7 @@ public class Train : State {
 
     private StateMachine stateMachine;
     private GameController gameController;
+    private TextController textController;
 
     public GameObject barracks;
 
@@ -19,7 +20,10 @@ public class Train : State {
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
+        textController = GetComponent<TextController>();
+        Debug.Log("Entering Train Phase");
         barracks.SetActive(true);
+        UpdateBarracksInfo();
     }
 
     public override void Act()
@@ -28,6 +32,27 @@ public class Train : State {
 
     public override void Reason()
     {
+    }
+
+    void UpdateBarracksInfo()
+    {
+        if (gameController.playerTurn == 1)
+        {
+            textController.barracksPeasantCount.text = gameController.p1.peasantCount.ToString();
+            textController.barracksFootmanCount.text = gameController.p1.footmanCount.ToString();
+            textController.barracksBowmanCount.text = gameController.p1.bowmanCount.ToString();
+            textController.barracksKnightCount.text = gameController.p1.knightCount.ToString();
+            textController.barracksLancerCount.text = gameController.p1.lancerCount.ToString();
+        }
+
+        if (gameController.playerTurn == 2)
+        {
+            textController.barracksPeasantCount.text = gameController.p2.peasantCount.ToString();
+            textController.barracksFootmanCount.text = gameController.p2.footmanCount.ToString();
+            textController.barracksBowmanCount.text = gameController.p2.bowmanCount.ToString();
+            textController.barracksKnightCount.text = gameController.p2.knightCount.ToString();
+            textController.barracksLancerCount.text = gameController.p2.lancerCount.ToString();
+        }
     }
 
     //All Training Options

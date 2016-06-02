@@ -19,7 +19,11 @@ public class DetermineFirstTurn : State
             gameController.playerTurn = 1;
             Debug.Log("Player 1 starts first!");
         }
-        else { gameController.playerTurn = 2; Debug.Log("Player 2 starts first!");}
+        else
+        {
+            gameController.playerTurn = 2;
+            Debug.Log("Player 2 starts first!");
+        }
         stateMachine.SetState(StateID.Initialization);
     }
 

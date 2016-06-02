@@ -46,19 +46,6 @@ public class Battle : State
     private int knightStronger;
     private int lancerStronger;
 
-    //ALL UNIT STATS COME HERE
-    public int peasantAtk;
-    public int footmanAtk;
-    public int bowmanAtk;
-    public int knightAtk;
-    public int lancerAtk;
-
-    public int peasantDef;
-    public int footmanDef;
-    public int bowmanDef;
-    public int knightDef;
-    public int lancerDef;
-
     //Player 1 unit texts
     public GUIText p1PeasantText;
     public GUIText p1FootmanText;
@@ -86,7 +73,7 @@ public class Battle : State
         //MIGRATE UPDATEBOARD TO "GOVERN.CS"
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
-        Debug.Log("Entering Battle");
+        Debug.Log("Entering Battle Phase");
         //ImportArmies();
     }
 

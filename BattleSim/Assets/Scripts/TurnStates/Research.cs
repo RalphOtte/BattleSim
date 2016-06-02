@@ -12,6 +12,7 @@ public class Research : State {
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
+        Debug.Log("Entering Research Phase");
         academy.SetActive(true);
     }
 

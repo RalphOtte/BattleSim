@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
     //General
     public int armyStartSize;
     public int armySize;
-    public int totalArmyStrenght;
     public int money;
+    public string moneyString;
+    public int safePhaseTurns;
 
     //Units
     public int peasantCount;
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     public int palaceLevel;
     public int palaceMaxLevel;
     public int palaceCurrentIncome;
+    public int palaceNextIncome;
     public int[] palaceUpgradeCost;
     public int[] palaceIncome;
     //Barracks
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
     public int wallLevel;
     public int wallMaxLevel;
     public int wallCurrentBonus;
+    public int wallNextBonus;
     public int[] wallUpgradeCost;
     public int[] wallBonus;
 
@@ -65,6 +68,12 @@ public class Player : MonoBehaviour
         wallLevel = 1;
         peasantCount = 10;
         UpdatePalaceIncome();
+        UpdateWallBonus();
+    }
+
+    public void convertInfoIntToString()
+    {
+        moneyString = money.ToString();
     }
 
     public void UpdateArmySize()
@@ -91,22 +100,27 @@ public class Player : MonoBehaviour
         if (palaceLevel == 1)
         {
             palaceCurrentIncome = palaceIncome[0];
+            palaceNextIncome = palaceIncome[1];
         }
         else if (palaceLevel == 2)
         {
             palaceCurrentIncome = palaceIncome[1];
+            palaceNextIncome = palaceIncome[2];
         }
         else if (palaceLevel == 3)
         {
             palaceCurrentIncome = palaceIncome[2];
+            palaceNextIncome = palaceIncome[3];
         }
         else if (palaceLevel == 4)
         {
             palaceCurrentIncome = palaceIncome[3];
+            palaceNextIncome = palaceIncome[4];
         }
         else if (palaceLevel == 5)
         {
             palaceCurrentIncome = palaceIncome[4];
+            palaceNextIncome = 0;
         }
     }
 
@@ -115,18 +129,27 @@ public class Player : MonoBehaviour
         if (wallLevel == 1)
         {
             wallCurrentBonus = wallBonus[0];
+            wallNextBonus = wallBonus[1];
         }
         else if (wallLevel == 2)
         {
             wallCurrentBonus = wallBonus[1];
+            wallNextBonus = wallBonus[2];
         }
         else if (wallLevel == 3)
         {
             wallCurrentBonus = wallBonus[2];
+            wallNextBonus = wallBonus[3];
         }
         else if (wallLevel == 4)
         {
-            wallCurrentBonus = wallBonus[2];
+            wallCurrentBonus = wallBonus[3];
+            wallNextBonus = wallBonus[4];
+        }
+        else if (wallLevel == 5)
+        {
+            wallCurrentBonus = wallBonus[4];
+            wallNextBonus = 0;
         }
     }
 

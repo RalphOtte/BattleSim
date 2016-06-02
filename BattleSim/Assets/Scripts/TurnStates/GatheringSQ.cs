@@ -14,6 +14,7 @@ public class GatheringSQ : State {
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
+        Debug.Log("Entering GatheringSQ Phase");
         gatheringSQ.SetActive(true);
         confirmScreen.SetActive(false);
     }

@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
         MakeStates();
 
         /** First state in the scene is "MatchSetup" */
-        stateMachine.SetState(StateID.Govern);
+        stateMachine.SetState(StateID.MatchSetup);
     }
 
     void MakeStates()

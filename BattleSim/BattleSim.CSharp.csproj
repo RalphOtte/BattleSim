@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\TurnStates\Train.cs" />
     <Compile Include="Assets\Scripts\TurnStates\Upgrade.cs" />
     <Compile Include="Assets\Scripts\TurnStates\Wall.cs" />
+    <Compile Include="Assets\Scripts\UnitData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
