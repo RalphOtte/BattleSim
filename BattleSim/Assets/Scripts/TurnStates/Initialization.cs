@@ -19,14 +19,14 @@ public class Initialization : State
             gameController.p1.money += gameController.p1.palaceCurrentIncome;
             gameController.p1.convertInfoIntToString();
             textController.playerTurn.text = "Player 1's turn";
-            textController.money.text = "Money: " + gameController.p1.moneyString;
+            textController.UpdateP1Money();
         }
         else if(gameController.playerTurn == 2)
         {
             gameController.p2.money += gameController.p2.palaceCurrentIncome;
             gameController.p2.convertInfoIntToString();
             textController.playerTurn.text = "Player 2's turn";
-            textController.money.text = "Money: " + gameController.p2.moneyString;
+            textController.UpdateP2Money();
         }
         stateMachine.SetState(StateID.Govern);
     }
