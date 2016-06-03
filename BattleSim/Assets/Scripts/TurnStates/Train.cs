@@ -43,6 +43,8 @@ public class Train : State {
             textController.barracksBowmanCount.text = gameController.p1.bowmanCount.ToString();
             textController.barracksKnightCount.text = gameController.p1.knightCount.ToString();
             textController.barracksLancerCount.text = gameController.p1.lancerCount.ToString();
+            textController.barracksCurrentProduction.text = "Current Production: " + gameController.p1.barracksLevel.ToString();
+            textController.barracksNextProduction.text = "Next Level Production: " + (gameController.p1.barracksLevel + 1).ToString();
         }
 
         if (gameController.playerTurn == 2)
@@ -52,6 +54,8 @@ public class Train : State {
             textController.barracksBowmanCount.text = gameController.p2.bowmanCount.ToString();
             textController.barracksKnightCount.text = gameController.p2.knightCount.ToString();
             textController.barracksLancerCount.text = gameController.p2.lancerCount.ToString();
+            textController.barracksCurrentProduction.text = "Current Production: " + gameController.p2.barracksLevel.ToString();
+            textController.barracksNextProduction.text = "Next Level Production: " + (gameController.p2.barracksLevel + 1).ToString();
         }
     }
 

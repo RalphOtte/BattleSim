@@ -110,12 +110,6 @@ public class Govern : State
         builderBuildingActive = true;
         stateMachine.SetState(StateID.Upgrade);
     }
-    /*
-    public void UpdateMoneyTexts()
-    {
-        player1Money.text = "Money: " + gameController.p1.money;
-        player2Money.text = "Money: " + gameController.p2.money;
-    }*/
 
     //General Back Button
     public void Back()

@@ -65,7 +65,6 @@ public class Player : MonoBehaviour
         palaceLevel = 1;
         barracksLevel = 1;
         academyLevel = 1;
-        wallLevel = 1;
         peasantCount = 10;
         UpdatePalaceIncome();
         UpdateWallBonus();
