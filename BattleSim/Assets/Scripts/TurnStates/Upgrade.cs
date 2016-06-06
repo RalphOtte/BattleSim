@@ -5,6 +5,7 @@ public class Upgrade : State {
 
     private StateMachine stateMachine;
     private GameController gameController;
+    private TextController textController;
 
     public GameObject buildersHut;
 
@@ -12,8 +13,12 @@ public class Upgrade : State {
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
+        textController = GetComponent<TextController>();
         Debug.Log("Entering Upgrade Phase");
         buildersHut.SetActive(true);
+        UpdateBuildersHutInfo();
+        gameController.p1.UpdateInfoIntToString();
+        gameController.p2.UpdateInfoIntToString();
     }
 
     public override void Act()
@@ -27,6 +32,19 @@ public class Upgrade : State {
     public override void Leave()
     {
         buildersHut.SetActive(false);
+    }
+
+    private void UpdateBuildersHutInfo()
+    {
+        if (gameController.playerTurn == 1)
+        {
+            textController.UpdateBuildersHutP1();
+        }
+
+        else if (gameController.playerTurn == 2)
+        {
+            textController.UpdateBuildersHutP2();
+        }
     }
 
     //All Upgrade Options
@@ -62,6 +80,9 @@ public class Upgrade : State {
             {
                 gameController.p1.money -= gameController.p1.barracksUpgradeCost[gameController.p1.barracksLevel - 1];
                 gameController.p1.barracksLevel++;
+                textController.UpdateBarracksProductionP1();
+
+
             }
         }
         else if (gameController.playerTurn == 2)
@@ -70,6 +91,7 @@ public class Upgrade : State {
             {
                 gameController.p2.money -= gameController.p2.barracksUpgradeCost[gameController.p2.barracksLevel - 1];
                 gameController.p2.barracksLevel++;
+                textController.UpdateBarracksProductionP2();
             }
         }
     }

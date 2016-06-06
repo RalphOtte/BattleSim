@@ -167,6 +167,7 @@ public class Research : State {
                     gameController.p1.money -= wallResearchCost;
                     gameController.p1.wallLevel++;
                     gameController.p1.UpdateWallBonus();
+                    textController.UpdateBannerP1();
                     textController.UpdateP1Money();
                 }
             }
@@ -182,6 +183,7 @@ public class Research : State {
                     gameController.p2.money -= wallResearchCost;
                     gameController.p2.wallLevel++;
                     gameController.p2.UpdateWallBonus();
+                    textController.UpdateBannerP2();
                     textController.UpdateP2Money();
                 }
             }

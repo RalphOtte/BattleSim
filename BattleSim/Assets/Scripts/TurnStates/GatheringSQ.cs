@@ -6,6 +6,7 @@ public class GatheringSQ : State {
     private StateMachine stateMachine;
     private GameController gameController;
     private TextController textController;
+    private Battle battle;
 
     public GameObject gatheringSQ;
     public GameObject menu;
@@ -16,7 +17,8 @@ public class GatheringSQ : State {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
         textController = GetComponent<TextController>();
-        Debug.Log("Entering GatheringSQ Phase");
+        battle = GetComponent<Battle>();
+        Debug.Log("Entering GatheringSquare Phase");
         gatheringSQ.SetActive(true);
         confirmScreen.SetActive(false);
         UpdateTroopInfo();
@@ -52,13 +54,33 @@ public class GatheringSQ : State {
 
     public void ConfirmScreen()
     {
-        menu.SetActive(false);
-        confirmScreen.SetActive(true);
+        if (gameController.p1.safePhaseTurns >= 0 || gameController.p2.safePhaseTurns >= 0)
+        {
+
+        }
+        else
+        {
+            menu.SetActive(false);
+            confirmScreen.SetActive(true);
+        }
     }
 
     public void ConfirmBattle()
     {
-
+        if (gameController.playerTurn == 1)
+        {
+            battle.attackingPlayer = 1;
+            battle.defendingPlayer = 2;
+        }
+        else if (gameController.playerTurn == 2)
+        {
+            battle.attackingPlayer = 2;
+            battle.defendingPlayer = 1;
+        }
+        Debug.Log("Initiating Battle!");
+        gameController.p1.FillArmyList();
+        gameController.p2.FillArmyList();
+        stateMachine.SetState(StateID.Battle);
     }
 
     public void CancelBattle()

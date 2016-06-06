@@ -9,9 +9,20 @@ public class TextController : MonoBehaviour {
     //General
     private GameController gameController;
 
-    //Govern
+    
+
+    //Banner
+    public Image playerColor;
     public Text playerTurn;
+    public Text turnText;
     public Text money;
+    public Text wallText;
+    public Text troopText;
+    public Text PCount;
+    public Text FCount;
+    public Text BCount;
+    public Text KCount;
+    public Text LCount;
 
     //Palace
     public Text palaceIncomeCurrent;
@@ -33,6 +44,9 @@ public class TextController : MonoBehaviour {
     public Text barracksLancerCount;
 
     //Builders Hut
+    public Text palaceCurrentLevel;
+    public Text barracksCurrentLevel;
+    public Text wallCurrentLevel;
     public Text palaceUpgradeCost;
     public Text barracksUpgradeCost;
     public Text wallUpgradeCost;
@@ -64,5 +78,61 @@ public class TextController : MonoBehaviour {
     {
         gameController.p2.convertInfoIntToString();
         money.text = "Money: " + gameController.p2.moneyString;
+    }
+
+    public void UpdateBannerP1()
+    {
+        PCount.text = gameController.p1.peasantCount.ToString();
+        FCount.text = gameController.p1.footmanCount.ToString();
+        BCount.text = gameController.p1.bowmanCount.ToString();
+        KCount.text = gameController.p1.knightCount.ToString();
+        LCount.text = gameController.p1.lancerCount.ToString();
+        wallText.text = "Wall Bonus: " + gameController.p1.wallCurrentBonus.ToString() + "%";
+        playerColor.color = Color.red;
+        troopText.text = "Troops per order: " + gameController.p1.barracksLevel.ToString();
+    }
+
+    public void UpdateBannerP2()
+    {
+        PCount.text = gameController.p2.peasantCount.ToString();
+        FCount.text = gameController.p2.footmanCount.ToString();
+        BCount.text = gameController.p2.bowmanCount.ToString();
+        KCount.text = gameController.p2.knightCount.ToString();
+        LCount.text = gameController.p2.lancerCount.ToString();
+        wallText.text = "Wall Bonus: " + gameController.p2.wallCurrentBonus.ToString() + "%";
+        playerColor.color = Color.blue;
+        troopText.text = "Troops per order: " + gameController.p2.barracksLevel.ToString();
+    }
+
+    public void UpdateBarracksProductionP1()
+    {
+        barracksCurrentProduction.text = gameController.p1.barracksLevelText;
+    }
+
+    public void UpdateBarracksProductionP2()
+    {
+        barracksCurrentProduction.text = gameController.p2.barracksLevelText;
+    }
+
+    public void UpdateBuildersHutP1()
+    {
+        palaceCurrentLevel.text = gameController.p1.palaceLevel + "/" + gameController.p1.palaceMaxLevel;
+        barracksCurrentLevel.text = gameController.p1.barracksLevel + "/" + gameController.p1.barracksMaxLevel;
+        wallCurrentLevel.text = gameController.p1.wallLevel + "/" + gameController.p1.wallMaxLevel;
+
+        palaceUpgradeCost.text = gameController.p1.palaceUpgradeCostText;
+        barracksUpgradeCost.text = gameController.p1.barracksUpgradeCostText;
+        wallUpgradeCost.text = gameController.p1.wallUpgradeCostText;
+    }
+
+    public void UpdateBuildersHutP2()
+    {
+        palaceCurrentLevel.text = gameController.p2.palaceLevel + "/" + gameController.p2.palaceMaxLevel;
+        barracksCurrentLevel.text = gameController.p2.barracksLevel + "/" + gameController.p2.barracksMaxLevel;
+        wallCurrentLevel.text = gameController.p2.wallLevel + "/" + gameController.p2.wallMaxLevel;
+
+        palaceUpgradeCost.text = gameController.p2.palaceUpgradeCostText;
+        barracksUpgradeCost.text = gameController.p2.barracksUpgradeCostText;
+        wallUpgradeCost.text = gameController.p2.wallUpgradeCostText;
     }
 }

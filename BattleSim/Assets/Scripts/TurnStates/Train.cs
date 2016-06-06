@@ -69,6 +69,8 @@ public class Train : State {
                 gameController.p1.money -= peasantTrainCost;
                 gameController.p1.peasantCount = gameController.p1.peasantCount + (1 * gameController.p1.barracksLevel);
                 textController.UpdateP1Money();
+                textController.UpdateBannerP1();
+                gameController.p1.UpdateArmy();
             }
         }
         else if (gameController.playerTurn == 2)
@@ -78,6 +80,8 @@ public class Train : State {
                 gameController.p2.money -= peasantTrainCost;
                 gameController.p2.peasantCount = gameController.p2.peasantCount + (1 * gameController.p2.barracksLevel);
                 textController.UpdateP2Money();
+                textController.UpdateBannerP2();
+                gameController.p2.UpdateArmy();
             }
         }
         UpdateBarracksInfo();
@@ -92,6 +96,8 @@ public class Train : State {
                 gameController.p1.money -= footmanTrainCost;
                 gameController.p1.footmanCount = gameController.p1.footmanCount + (1 * gameController.p1.barracksLevel);
                 textController.UpdateP1Money();
+                textController.UpdateBannerP1();
+                gameController.p1.UpdateArmy();
             }
         }
         else if (gameController.playerTurn == 2)
@@ -101,6 +107,8 @@ public class Train : State {
                 gameController.p2.money -= footmanTrainCost;
                 gameController.p2.footmanCount = gameController.p2.footmanCount + (1 * gameController.p2.barracksLevel);
                 textController.UpdateP2Money();
+                textController.UpdateBannerP2();
+                gameController.p2.UpdateArmy();
             }
         }
         UpdateBarracksInfo();
@@ -115,6 +123,8 @@ public class Train : State {
                 gameController.p1.money -= bowmanTrainCost;
                 gameController.p1.bowmanCount = gameController.p1.bowmanCount + (1 * gameController.p1.barracksLevel);
                 textController.UpdateP1Money();
+                textController.UpdateBannerP1();
+                gameController.p1.UpdateArmy();
             }
         }
         else if (gameController.playerTurn == 2)
@@ -124,6 +134,8 @@ public class Train : State {
                 gameController.p2.money -= bowmanTrainCost;
                 gameController.p2.bowmanCount = gameController.p2.bowmanCount + (1 * gameController.p2.barracksLevel);
                 textController.UpdateP2Money();
+                textController.UpdateBannerP2();
+                gameController.p2.UpdateArmy();
             }
         }
         UpdateBarracksInfo();
@@ -138,6 +150,8 @@ public class Train : State {
                 gameController.p1.money -= knightTrainCost;
                 gameController.p1.knightCount = gameController.p1.knightCount + (1 * gameController.p1.barracksLevel);
                 textController.UpdateP1Money();
+                textController.UpdateBannerP1();
+                gameController.p1.UpdateArmy();
             }
         }
         else if (gameController.playerTurn == 2)
@@ -147,6 +161,8 @@ public class Train : State {
                 gameController.p2.money -= knightTrainCost;
                 gameController.p2.knightCount = gameController.p2.knightCount + (1 * gameController.p2.barracksLevel);
                 textController.UpdateP2Money();
+                textController.UpdateBannerP2();
+                gameController.p2.UpdateArmy();
             }
         }
         UpdateBarracksInfo();
@@ -161,6 +177,8 @@ public class Train : State {
                 gameController.p1.money -= lancerTrainCost;
                 gameController.p1.lancerCount = gameController.p1.lancerCount + (1 * gameController.p1.barracksLevel);
                 textController.UpdateP1Money();
+                textController.UpdateBannerP1();
+                gameController.p1.UpdateArmy();
             }
         }
         else if (gameController.playerTurn == 2)
@@ -170,6 +188,8 @@ public class Train : State {
                 gameController.p2.money -= lancerTrainCost;
                 gameController.p2.lancerCount = gameController.p2.lancerCount + (1 * gameController.p2.barracksLevel);
                 textController.UpdateP2Money();
+                textController.UpdateBannerP2();
+                gameController.p2.UpdateArmy();
             }
         }
         UpdateBarracksInfo();

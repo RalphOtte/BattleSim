@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour{
 
     //General
-    public int armyStartSize;
     public int armySize;
+    public int armyPower;
+    //public List<int> armyList;
     public int money;
     public string moneyString;
     public int safePhaseTurns;
@@ -17,6 +18,20 @@ public class Player : MonoBehaviour
     public int bowmanCount;
     public int knightCount;
     public int lancerCount;
+
+    //Unit Health
+    public int peasantHealth;
+    public int footmanHealth;
+    public int bowmanHealth;
+    public int knightHealth;
+    public int lancerHealth;
+
+    //Unit AttackPower
+    public int peasantPower;
+    public int footmanPower;
+    public int bowmanPower;
+    public int knightPower;
+    public int lancerPower;
 
     //Buildings
     //ResearchTexts
@@ -59,6 +74,8 @@ public class Player : MonoBehaviour
     public bool lancerUnlocked;
     //Buildings
     public bool wallUnlocked;
+    [SerializeField]
+    public List<int> armyList = new List<int>();
 
     void Start()
     {
@@ -68,6 +85,8 @@ public class Player : MonoBehaviour
         peasantCount = 10;
         UpdatePalaceIncome();
         UpdateWallBonus();
+        UpdateArmy();
+        //FillArmyList();
     }
 
     public void convertInfoIntToString()
@@ -75,12 +94,62 @@ public class Player : MonoBehaviour
         moneyString = money.ToString();
     }
 
+    public void UpdateArmy()
+    {
+        UpdateArmySize();
+        UpdateArmyPower();
+    }
+
     public void UpdateArmySize()
     {
         armySize = peasantCount + footmanCount + bowmanCount + knightCount + lancerCount;
     }
 
-    public void UpdateResearchIntToString()
+    public void UpdateArmyPower()
+    {
+        armyPower =
+        (peasantCount * peasantPower) +
+        (footmanCount * footmanPower) +
+        (bowmanCount * bowmanPower) +
+        (knightCount * knightPower) +
+        (lancerCount * lancerPower);
+    }
+
+    public void FillArmyList()
+    {
+        Debug.Log("Filling armyList");
+
+        //Fill list list with int(peasantAtk) * peasantCount
+        for (int i = 0; i < peasantCount; i++)
+        {
+            armyList.Add(peasantHealth);
+            Debug.Log("Added Peasant To List");
+        }
+        for (int j = 0; j < footmanCount; j++)
+        {
+            armyList.Add(footmanHealth);
+            Debug.Log("Added Footman to list");
+        }
+        for (int k = 0; k < bowmanCount; k++)
+        {
+            armyList.Add(bowmanHealth);
+            Debug.Log("Added Bowman to list");
+        }
+        for (int l = 0; l < knightCount; l++)
+        {
+            armyList.Add(knightHealth);
+            Debug.Log("Added Knight to list");
+        }
+        for (int m = 0; m < lancerCount; m++)
+        {
+            armyList.Add(lancerHealth);
+            Debug.Log("Added Lancer to List");
+        }
+        Debug.Log(armyList.Count + "armyList Count");
+
+    }
+
+    public void UpdateInfoIntToString()
     {
         //Converts all building levels to strings for use in other elements
         palaceLevelText = palaceLevel.ToString();

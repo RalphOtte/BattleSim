@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Battle : State
 {
@@ -12,39 +13,34 @@ public class Battle : State
     public int attackingPlayer; //Each number corresponds to player number, 1 = P1 etc.
     public int defendingPlayer; //Each number corresponds to player number, 2 = P2 etc.
 
-    //All bools are used to flag whether player has higher than 0 of a kind of unit
-    bool p1HasPeasant;
-    bool p1HasFootman;
-    bool p1HasBowman;
-    bool p1HasKnight;
-    bool p1HasLancer;
-    bool p1HasWall;
+    //Attacking Troops
+    private int atkTroopCount; //How many troops the attacking player has
+    private int atkTroopPower; //How many power the troops of the attacking player has
+    private float atkTroopDifferential; //How many times more/less troops the attacking player has over the defending player
+    private float atkTotalPower; //Total power of the attacking player after all calculations
+    private int atkTotalHealth;
+    //These integers will subtract the losses from the player after the battle is done
+    private int atkPeasantLost;
+    private int atkFootmanLost;
+    private int atkBowmanLost;
+    private int atkKnightLost;
+    private int atkLancerLost;
 
-    bool p2HasPeasant;
-    bool p2HasFootman;
-    bool p2HasBowman;
-    bool p2HasKnight;
-    bool p2HasLancer;
-    bool p2HasWall;
+    //Defending Troops
+    private int defTroopCount; //How many troops the defending player has
+    private int defTroopPower; //How many power the troops of the defending player has
+    private int defDefenseBonus; //WallBonus
+    private int defTotalPower; //Total power of the defending player after all calculations
+    private int defTotalHealth;
+    //These integers will subtract the losses from the player after the battle is done
+    private int defPeasantLost;
+    private int defFootmanLost;
+    private int defBowmanLost;
+    private int defKnightLost;
+    private int defLancerLost;
 
-    private int peasantCountAtk;
-    private int footmanCountAtk;
-    private int bowmanCountAtk;
-    private int knightCountAtk;
-    private int lancerCountAtk;
-
-    private int peasantCountDef;
-    private int footmanCountDef;
-    private int bowmanCountDef;
-    private int knightCountDef;
-    private int lancerCountDef;
-    private int wallBonusDef;
-
-    private int peasantStronger; //1 = player 1, 2 = player 2 etc.
-    private int footmanStronger;
-    private int bowmanStronger;
-    private int knightStronger;
-    private int lancerStronger;
+    private List<int> atkList;
+    private List<int> defList;
 
     //Player 1 unit texts
     public GUIText p1PeasantText;
@@ -60,21 +56,18 @@ public class Battle : State
     public GUIText p2KnightText;
     public GUIText p2LancerText;
 
+    private int selectedUnit; // In the list
+
     public override void Enter()
     {
         //MIGRATE UPDATEBOARD TO "GOVERN.CS"
         //MIGRATE UPDATEBOARD TO "GOVERN.CS"
-        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
-        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
-        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
-        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
-        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
-        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
-        //MIGRATE UPDATEBOARD TO "GOVERN.CS"
+
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
         Debug.Log("Entering Battle Phase");
-        //ImportArmies();
+        //Show Empty Board
+        ImportArmies();
     }
 
     public override void Act()
@@ -106,74 +99,91 @@ public class Battle : State
     {
         if (attackingPlayer == 1)
         {
-            peasantCountAtk = gameController.p1.peasantCount;
-            footmanCountAtk = gameController.p1.footmanCount;
-            bowmanCountAtk = gameController.p1.bowmanCount;
-            knightCountAtk = gameController.p1.knightCount;
-            lancerCountAtk = gameController.p1.lancerCount;
-
-            peasantCountDef = gameController.p2.peasantCount;
-            footmanCountDef = gameController.p2.footmanCount;
-            bowmanCountDef = gameController.p2.bowmanCount;
-            knightCountDef = gameController.p2.knightCount;
-            lancerCountDef = gameController.p2.lancerCount;
+            //Import Player 1's Troop data and place it in attacking players variables
+            atkTroopCount = gameController.p1.armySize;
+            atkTroopPower = gameController.p1.armyPower;
+            Debug.Log("atk Count " + atkTroopCount);
+            Debug.Log("atkPow " + atkTroopPower);
+            //Import player 2's troop data and place it in defending players variables
+            defTroopCount = gameController.p2.armySize;
+            defTroopPower = gameController.p2.armyPower;
+            defDefenseBonus = gameController.p2.wallCurrentBonus;
+            Debug.Log("def Count " + defTroopCount);
+            Debug.Log("defPow " + defTroopPower);
+            Debug.Log("defWall " + defDefenseBonus);
         }
         else if (attackingPlayer == 2)
         {
-            peasantCountAtk = gameController.p2.peasantCount;
-            footmanCountAtk = gameController.p2.footmanCount;
-            bowmanCountAtk = gameController.p2.bowmanCount;
-            knightCountAtk = gameController.p2.knightCount;
-            lancerCountAtk = gameController.p2.lancerCount;
-
-            peasantCountDef = gameController.p1.peasantCount;
-            footmanCountDef = gameController.p1.footmanCount;
-            bowmanCountDef = gameController.p1.bowmanCount;
-            knightCountDef = gameController.p1.knightCount;
-            lancerCountDef = gameController.p1.lancerCount;
+            //Import Player 1's Troop data and place it in attacking players variables
+            atkTroopCount = gameController.p2.armySize;
+            atkTroopPower = gameController.p2.armyPower;
+            Debug.Log("atk Count " + atkTroopCount);
+            Debug.Log("atkPow " + atkTroopPower);
+            //Import player 2's troop data and place it in defending players variables
+            defTroopCount = gameController.p1.armySize;
+            defTroopPower = gameController.p1.armyPower;
+            defDefenseBonus = gameController.p1.wallCurrentBonus;
+            Debug.Log("def Count " + defTroopCount);
+            Debug.Log("defPow " + defTroopPower);
+            Debug.Log("defWall " + defDefenseBonus);
         }
-        //When import is done
+        //When this method is done:
+        CalculateArmyPowers();
+    }
+
+    void CalculateArmyPowers()
+    {
+        //Determine Attacking troops power
+        atkTroopDifferential = atkTroopCount / defTroopCount;
+        atkTotalPower = atkTroopCount * atkTroopDifferential;
+        Debug.Log("atkTotPow" + atkTotalPower);
+        Debug.Log("atk troop diff" + atkTroopDifferential);
+
+        //When this method is done:
+        //Fill ArmyLists
+        
+    }
+
+    void FillArmyLists()
+    {
+        //Copy army lists directly from player
+        if (attackingPlayer == 1)
+        {
+            atkList = new List<int>(gameController.p1.armyList);
+            defList = new List<int>(gameController.p2.armyList);
+        }
+        else if (attackingPlayer == 2)
+        {
+            atkList = new List<int>(gameController.p2.armyList);
+            defList = new List<int>(gameController.p1.armyList);
+        }
+        //When this method is done:
         BattleSequence();
     }
 
     void BattleSequence()
     {
-        /* <Summary>
-            This method handles all numbers and math, and posts the result in variables
-            Currently all battles are a 1:1 power subtraction from each unit type
-            IDEA: Fill lists with all able unit types and subtract 1:1.
-            IDEA: Show power of armies and make a calculation based off of that
-        </Summary> */
+        //This method handles all numbers and math, and posts the result in variables
 
-        if (peasantCountAtk >= peasantCountDef)
+        //Subtract attackingtroops
+        //Checks if the remaining DefPower is higher than the lowest int in the list
+        //If the Defpower is higher and there are still list items left. Subtract
+        if (defTotalPower > atkList[0] && atkList.Count >= 1)
         {
-            peasantStronger = 1;
+            int randomIndex = Random.Range(0, atkList.Count);
+            defTotalPower -= randomIndex;
         }
-        else { peasantStronger = 2; }
 
-        if (footmanCountAtk >= footmanCountDef)
+        //Checks if the remaining AtkPower is higher than the lowest int in the list
+        //If the Atkpower is higher and there are still list items left. Subtract
+        if (atkTotalPower > defList[0] && defList.Count >= 1)
         {
-            footmanStronger = 1;
+            int randomIndex = Random.Range(0, defList.Count);
+            atkTotalPower -= randomIndex;
         }
-        else { footmanStronger = 2; }
-
-        if (bowmanCountAtk >= bowmanCountDef)
-        {
-            bowmanStronger = 1;
-        }
-        else { bowmanStronger = 2; }
-
-        if (knightCountAtk >= knightCountDef)
-        {
-            knightStronger = 1;
-        }
-        else { knightStronger = 2; }
-
-        if (lancerCountAtk >= lancerCountDef)
-        {
-            lancerStronger = 1;
-        }
-        else { lancerStronger = 2; }
+        
+        
+        
 
         //When this method is done:
         //ShowBattleResults();
@@ -191,7 +201,7 @@ public class Battle : State
         //If defending player still has troops:
         //govern.EndTurn();
 
-        //If defending player has no troops lef:
+        //If defending player has no troops left:
         //govern.GameOver();
     }
 }

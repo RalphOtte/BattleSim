@@ -8,6 +8,7 @@ public class Govern : State
     private GameController gameController;
 
     public GameObject townScreen;
+    public GameObject banner;
     public GameObject palaceBuilding;
     public GameObject barracksBuilding;
     public GameObject academyBuilding;
@@ -17,11 +18,10 @@ public class Govern : State
 
     public GameObject giveUpButton;
     public GameObject EndTurnButton;
-    public GameObject playerTurnText;
-    public GameObject moneyText;
     public GameObject gameOverScreen;
 
     private bool townScreenActive;
+    private bool bannerActive;
     private bool palaceBuildingActive;
     private bool barracksBuildingActive;
     private bool academyBuildingActive;
@@ -31,8 +31,6 @@ public class Govern : State
 
     private bool giveUpButtonActive;
     private bool endTurnButtonActive;
-    private bool playerTurnTextActive;
-    private bool moneyTextActive;
 
     public override void Enter()
     {
@@ -45,10 +43,6 @@ public class Govern : State
         EndTurnButton.SetActive(true);
         giveUpButtonActive = true;
         giveUpButton.SetActive(true);
-        playerTurnTextActive = true;
-        playerTurnText.SetActive(true);
-        moneyTextActive = true;
-        moneyText.SetActive(true);
     }
 
     public override void Act()
@@ -186,114 +180,4 @@ public class Govern : State
         //Reloads current scene
         Application.LoadLevel(Application.loadedLevel);
     }
-
-    /*
-    
-
-    //All Research Options
-    public void ResearchFootman()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= footmanResearchCost)
-            {
-                gameController.p1.money -= footmanResearchCost;
-                gameController.p1.footmanUnlocked = true;
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= footmanResearchCost)
-            {
-                gameController.p2.money -= footmanResearchCost;
-                gameController.p2.footmanUnlocked = true;
-            }
-        }
-        UpdateMoneyTexts();
-    }
-
-    public void ResearchBowman()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= bowmanResearchCost)
-            {
-                gameController.p1.money -= bowmanResearchCost;
-                gameController.p1.bowmanUnlocked = true;
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= bowmanResearchCost)
-            {
-                gameController.p2.money -= bowmanResearchCost;
-                gameController.p2.bowmanUnlocked = true;
-            }
-        }
-        UpdateMoneyTexts();
-    }
-
-    public void ResearchKnight()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= knightResearchCost)
-            {
-                gameController.p1.money -= knightResearchCost;
-                gameController.p1.knightUnlocked = true;
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= knightResearchCost)
-            {
-                gameController.p2.money -= knightResearchCost;
-                gameController.p2.knightUnlocked = true;
-            }
-        }
-        UpdateMoneyTexts();
-    }
-
-    public void ResearchLancer()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= footmanResearchCost)
-            {
-                gameController.p1.money -= footmanResearchCost;
-                gameController.p1.footmanUnlocked = true;
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= footmanResearchCost)
-            {
-                gameController.p2.money -= footmanResearchCost;
-                gameController.p2.footmanUnlocked = true;
-            }
-        }
-        UpdateMoneyTexts();
-    }
-
-    public void ResearchWall()
-    {
-        if (gameController.playerTurn == 1)
-        {
-            if (gameController.p1.money >= lancerResearchCost)
-            {
-                gameController.p1.money -= lancerResearchCost;
-                gameController.p1.lancerUnlocked = true;
-            }
-        }
-        else if (gameController.playerTurn == 2)
-        {
-            if (gameController.p2.money >= lancerResearchCost)
-            {
-                gameController.p2.money -= lancerResearchCost;
-                gameController.p2.lancerUnlocked = true;
-            }
-        }
-        UpdateMoneyTexts();
-    }
-    */
 }

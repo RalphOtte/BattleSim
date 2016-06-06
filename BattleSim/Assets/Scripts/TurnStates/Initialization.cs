@@ -18,15 +18,25 @@ public class Initialization : State
         {
             gameController.p1.money += gameController.p1.palaceCurrentIncome;
             gameController.p1.convertInfoIntToString();
+            if (gameController.p1.safePhaseTurns >= 0)
+            {
+                gameController.p1.safePhaseTurns--;
+            }
             textController.playerTurn.text = "Player 1's turn";
             textController.UpdateP1Money();
+            textController.UpdateBannerP1();
         }
         else if(gameController.playerTurn == 2)
         {
             gameController.p2.money += gameController.p2.palaceCurrentIncome;
             gameController.p2.convertInfoIntToString();
+            if (gameController.p2.safePhaseTurns >= 0)
+            {
+                gameController.p2.safePhaseTurns--;
+            }
             textController.playerTurn.text = "Player 2's turn";
             textController.UpdateP2Money();
+            textController.UpdateBannerP2();
         }
         stateMachine.SetState(StateID.Govern);
     }
