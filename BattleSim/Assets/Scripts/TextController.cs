@@ -9,8 +9,6 @@ public class TextController : MonoBehaviour {
     //General
     private GameController gameController;
 
-    
-
     //Banner
     public Image playerColor;
     public Text playerTurn;
@@ -62,11 +60,35 @@ public class TextController : MonoBehaviour {
     public Text gatheringKnightCount;
     public Text gatheringLancerCount;
 
+    //BattleResults
+    public Text attackerPlayer;
+    public Text defenderPlayer;
+    public Text battleAtkPeasantCountOld;
+    public Text battleAtkFootmanCountOld;
+    public Text battleAtkBowmanCountOld;
+    public Text battleAtkKnightCountOld;
+    public Text battleAtkLancerCountOld;
+    public Text battleAtkPeasantCountNew;
+    public Text battleAtkFootmanCountNew;
+    public Text battleAtkBowmanCountNew;
+    public Text battleAtkKnightCountNew;
+    public Text battleAtkLancerCountNew;
+
+    public Text battleDefPeasantCountOld;
+    public Text battleDefFootmanCountOld;
+    public Text battleDefBowmanCountOld;
+    public Text battleDefKnightCountOld;
+    public Text battleDefLancerCountOld;
+    public Text battleDefPeasantCountNew;
+    public Text battleDefFootmanCountNew;
+    public Text battleDefBowmanCountNew;
+    public Text battleDefKnightCountNew;
+    public Text battleDefLancerCountNew;
+
     void Start()
     {
         gameController = GetComponent<GameController>();
     }
-
 
     public void UpdateP1Money()
     {

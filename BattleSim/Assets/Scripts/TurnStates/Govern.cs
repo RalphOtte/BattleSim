@@ -7,6 +7,8 @@ public class Govern : State
     private StateMachine stateMachine;
     private GameController gameController;
 
+    public int winningPlayer;
+
     public GameObject townScreen;
     public GameObject banner;
     public GameObject palaceBuilding;
@@ -139,7 +141,6 @@ public class Govern : State
 
     public void EndTurn()
     {
-        //Switch to other player's initialization phase
         if (gameController.playerTurn == 1)
         {
             gameController.playerTurn = 2;
