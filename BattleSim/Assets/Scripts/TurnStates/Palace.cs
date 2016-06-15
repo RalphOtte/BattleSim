@@ -10,6 +10,7 @@ public class Palace : State
     private TextController textController;
 
     public GameObject palace;
+    public GameObject safePhaseRequestScreen;
     
 
     public override void Enter()
@@ -33,6 +34,12 @@ public class Palace : State
     public override void Leave()
     {
         palace.SetActive(false);
+    }
+
+    public void RequestSafePhase()
+    {
+        palace.SetActive(false);
+        safePhaseRequestScreen.SetActive(true);
     }
 
     void UpdatePalaceInfo()

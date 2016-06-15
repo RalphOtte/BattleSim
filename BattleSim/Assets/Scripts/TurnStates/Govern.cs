@@ -6,6 +6,7 @@ public class Govern : State
 {
     private StateMachine stateMachine;
     private GameController gameController;
+    private TextController textController;
 
     public int winningPlayer;
 
@@ -38,6 +39,7 @@ public class Govern : State
     {
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
+        textController = GetComponent<TextController>();
         Debug.Log("Entering Govern Phase");
         townScreenActive = true;
         townScreen.SetActive(true);
@@ -141,6 +143,9 @@ public class Govern : State
 
     public void EndTurn()
     {
+        textController.totalTurns++;
+        textController.UpdateTotalTurns();
+
         if (gameController.playerTurn == 1)
         {
             gameController.playerTurn = 2;

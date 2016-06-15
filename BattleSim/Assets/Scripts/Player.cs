@@ -7,10 +7,11 @@ public class Player : MonoBehaviour{
     //General
     public int armySize;
     public int armyPower;
-    //public List<int> armyList;
     public int money;
     public string moneyString;
     public int safePhaseTurns;
+    public bool wantsSafePhase;
+    public bool tooltipsEnabled;
 
     //Units
     public int peasantCount;
@@ -83,16 +84,25 @@ public class Player : MonoBehaviour{
         barracksLevel = 1;
         academyLevel = 1;
         peasantCount = 10;
+        tooltipsEnabled = true;
         UpdatePalaceIncome();
         UpdateWallBonus();
         UpdateArmy();
-        //FillArmyList();
     }
 
     public void convertInfoIntToString()
     {
         moneyString = money.ToString();
     }
+
+    public void ToggleTooltips()
+    {
+        if (tooltipsEnabled)
+        {
+            tooltipsEnabled = false;
+        }else { tooltipsEnabled = true; }
+    }
+
 
     public void UpdateArmy()
     {
@@ -113,6 +123,11 @@ public class Player : MonoBehaviour{
         (bowmanCount * bowmanPower) +
         (knightCount * knightPower) +
         (lancerCount * lancerPower);
+    }
+
+    public void EmptyArmyList()
+    {
+        armyList.Clear();
     }
 
     public void FillArmyList()

@@ -12,7 +12,7 @@ public class TextController : MonoBehaviour {
     //Banner
     public Image playerColor;
     public Text playerTurn;
-    public Text turnText;
+    public Text turnText; //Total Turn Text
     public Text money;
     public Text wallText;
     public Text troopText;
@@ -21,6 +21,7 @@ public class TextController : MonoBehaviour {
     public Text BCount;
     public Text KCount;
     public Text LCount;
+    public int totalTurns;
 
     //Palace
     public Text palaceIncomeCurrent;
@@ -88,6 +89,11 @@ public class TextController : MonoBehaviour {
     void Start()
     {
         gameController = GetComponent<GameController>();
+    }
+
+    public void UpdateTotalTurns()
+    {
+        turnText.text = "Turn: " + (totalTurns/2).ToString();
     }
 
     public void UpdateP1Money()

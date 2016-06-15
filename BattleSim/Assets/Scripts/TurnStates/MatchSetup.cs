@@ -8,6 +8,7 @@ public class MatchSetup : State {
     private GameController gameController;
 
     public GameObject matchSetup;
+    public GameObject safePhaseScreen;
 
     public override void Enter ()
     {
@@ -29,6 +30,7 @@ public class MatchSetup : State {
     {
         gameController.p1.safePhaseTurns = 10;
         gameController.p2.safePhaseTurns = 10;
+        safePhaseScreen.SetActive(false);
         ContinueToDetermineFirstTurn();
     }
 
@@ -36,10 +38,11 @@ public class MatchSetup : State {
     {
         gameController.p1.safePhaseTurns = 0;
         gameController.p2.safePhaseTurns = 0;
+        safePhaseScreen.SetActive(false);
         ContinueToDetermineFirstTurn();
     }
 
-    void ContinueToDetermineFirstTurn()
+    public void ContinueToDetermineFirstTurn()
     {
         matchSetup.SetActive(false);
         stateMachine.SetState(StateID.DetermineFirstTurn);

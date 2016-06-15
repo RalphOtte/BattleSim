@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateMachine.cs" />
     <Compile Include="Assets\Scripts\TextController.cs" />
+    <Compile Include="Assets\Scripts\Tooltips\Tooltip.cs" />
     <Compile Include="Assets\Scripts\TurnStates\Battle.cs" />
     <Compile Include="Assets\Scripts\TurnStates\BattleResult.cs" />
     <Compile Include="Assets\Scripts\TurnStates\DetermineFirstTurn.cs" />

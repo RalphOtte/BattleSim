@@ -25,7 +25,6 @@ public class Battle : State
     private float atkTroopPower; //How many power the troops of the attacking player has
     private float atkTroopDifferential; //How many times more/less troops the attacking player has over the defending player
     private float atkTotalPower; //Total power of the attacking player after all calculations
-    private float atkTotalHealth;
     //Old troop count
     private float atkPeasantCountOld;
     private float atkFootmanCountOld;
@@ -43,7 +42,6 @@ public class Battle : State
     private float defTroopPower; //How many power the troops of the defending player has
     private float defDefenseBonus; //WallBonus
     private float defTotalPower; //Total power of the defending player after all calculations
-    private float defTotalHealth;
     //Old troop count
     private float defPeasantCountOld;
     private float defFootmanCountOld;
@@ -74,8 +72,6 @@ public class Battle : State
     public GUIText p2KnightText;
     public GUIText p2LancerText;
 
-    private int selectedUnit; // In the list
-
     public override void Enter()
     {
         //MIGRATE UPDATEBOARD TO "GOVERN.CS"
@@ -87,16 +83,14 @@ public class Battle : State
         govern = GetComponent<Govern>();
         Debug.Log("Entering Battle Phase");
         battleScreen.SetActive(true);
-        //Show Empty Board
+        FillArmyLists();
         ImportArmies();
     }
 
     public override void Act()
     {
-        //Debug.Log("Battle Act");
         if (battleSequence == true)
         {
-            //Debug.Log("BattleSequence");
             BattleSequence();
         }
         else { }
@@ -123,6 +117,22 @@ public class Battle : State
         p2LancerText.text = "" + p2.lancerCount;
 
         Debug.Log("Troop Board Updated");
+    }
+
+    void FillArmyLists()
+    {
+        //Copy army lists directly from player
+        if (attackingPlayer == 1)
+        {
+            atkList = new List<int>(gameController.p1.armyList);
+            defList = new List<int>(gameController.p2.armyList);
+        }
+        else if (attackingPlayer == 2)
+        {
+            atkList = new List<int>(gameController.p2.armyList);
+            defList = new List<int>(gameController.p1.armyList);
+        }
+        Debug.Log("Entering Battle Sequence");
     }
 
     void ImportArmies()
@@ -191,32 +201,11 @@ public class Battle : State
         defTotalPower = Mathf.RoundToInt(defTroopPower/* +( defTroopPower * (defDefenseBonus / 100))*/);
         Debug.Log("defTotPow" + defTotalPower);
 
-        //When this method is done:
-        FillArmyLists();
-    }
-
-    void FillArmyLists()
-    {
-        //Copy army lists directly from player
-        if (attackingPlayer == 1)
-        {
-            atkList = new List<int>(gameController.p1.armyList);
-            defList = new List<int>(gameController.p2.armyList);
-        }
-        else if (attackingPlayer == 2)
-        {
-            atkList = new List<int>(gameController.p2.armyList);
-            defList = new List<int>(gameController.p1.armyList);
-        }
-        //When this method is done:
         battleSequence = true;
-        Debug.Log("Entering Battle Sequence");
     }
 
     void BattleSequence()
     {
-        //This method handles all numbers and math, and posts the result in variables
-
         //Debug.Log(defTotalPower + "DefTot" + atkList[0] + "atklist");
         if (defTotalPower > atkList[0] && atkList.Count >= 0)
         {
@@ -251,7 +240,7 @@ public class Battle : State
                 
         }
         else { defSequenceDone = true; }
-        if (atkTotalPower > defList[0] && defList.Count >= 0)
+        if (defList.Count > 0 && atkTotalPower > defList[0])
         {
             Debug.Log("Defense Battle Sequence");
             int randomIndex = Random.Range(0, defList.Count);
@@ -464,6 +453,14 @@ public class Battle : State
 
     public override void Leave()
     {
+        gameController.p1.EmptyArmyList();
+        gameController.p1.UpdateArmy();
+        gameController.p1.UpdateArmyPower();
+        gameController.p1.UpdateArmySize();
+        gameController.p2.EmptyArmyList();
+        gameController.p2.UpdateArmy();
+        gameController.p2.UpdateArmyPower();
+        gameController.p2.UpdateArmySize();
         battleScreen.SetActive(false);
     }
 }

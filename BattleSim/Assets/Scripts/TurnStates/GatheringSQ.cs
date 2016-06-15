@@ -20,6 +20,7 @@ public class GatheringSQ : State {
         battle = GetComponent<Battle>();
         Debug.Log("Entering GatheringSquare Phase");
         gatheringSQ.SetActive(true);
+        menu.SetActive(true);
         confirmScreen.SetActive(false);
         UpdateTroopInfo();
     }
