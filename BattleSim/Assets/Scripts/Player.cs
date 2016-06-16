@@ -7,6 +7,7 @@ public class Player : MonoBehaviour{
     //General
     public int armySize;
     public int armyPower;
+    public int startMoney;
     public int money;
     public string moneyString;
     public int safePhaseTurns;
@@ -84,6 +85,7 @@ public class Player : MonoBehaviour{
         barracksLevel = 1;
         academyLevel = 1;
         peasantCount = 10;
+        money += startMoney;
         tooltipsEnabled = true;
         UpdatePalaceIncome();
         UpdateWallBonus();

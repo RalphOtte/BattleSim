@@ -8,6 +8,10 @@ public class Upgrade : State {
     private TextController textController;
 
     public GameObject buildersHut;
+    public GameObject moneyAnimation;
+    public GameObject palaceUpgradeAnimation;
+    public GameObject barracksUpgradeAnimation;
+    public GameObject wallUpgradeAnimation;
 
     public override void Enter()
     {
@@ -58,6 +62,7 @@ public class Upgrade : State {
                 gameController.p1.money -= gameController.p1.palaceUpgradeCost[gameController.p1.palaceLevel - 1];
                 gameController.p1.palaceLevel++;
                 gameController.p1.UpdatePalaceIncome();
+                Instantiate(moneyAnimation, palaceUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -67,6 +72,7 @@ public class Upgrade : State {
                 gameController.p2.money -= gameController.p2.palaceUpgradeCost[gameController.p2.palaceLevel - 1];
                 gameController.p2.palaceLevel++;
                 gameController.p2.UpdatePalaceIncome();
+                Instantiate(moneyAnimation, palaceUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
     }
@@ -81,8 +87,7 @@ public class Upgrade : State {
                 gameController.p1.money -= gameController.p1.barracksUpgradeCost[gameController.p1.barracksLevel - 1];
                 gameController.p1.barracksLevel++;
                 textController.UpdateBarracksProductionP1();
-
-
+                Instantiate(moneyAnimation, barracksUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -92,6 +97,7 @@ public class Upgrade : State {
                 gameController.p2.money -= gameController.p2.barracksUpgradeCost[gameController.p2.barracksLevel - 1];
                 gameController.p2.barracksLevel++;
                 textController.UpdateBarracksProductionP2();
+                Instantiate(moneyAnimation, barracksUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
     }
@@ -106,6 +112,7 @@ public class Upgrade : State {
                 gameController.p1.money -= gameController.p1.wallUpgradeCost[gameController.p1.wallLevel - 1];
                 gameController.p1.wallLevel++;
                 gameController.p1.UpdateWallBonus();
+                Instantiate(moneyAnimation, wallUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -115,6 +122,7 @@ public class Upgrade : State {
                 gameController.p2.money -= gameController.p2.wallUpgradeCost[gameController.p2.wallLevel - 1];
                 gameController.p2.wallLevel++;
                 gameController.p2.UpdateWallBonus();
+                Instantiate(moneyAnimation, wallUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
     }

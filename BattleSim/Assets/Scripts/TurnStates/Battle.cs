@@ -451,8 +451,24 @@ public class Battle : State
         }
     }
 
+    void ResetLosses()
+    {
+        atkPeasantLost = 0;
+        atkFootmanLost = 0;
+        atkBowmanLost = 0;
+        atkKnightLost = 0;
+        atkLancerLost = 0;
+
+        defPeasantLost = 0;
+        defFootmanLost = 0;
+        defBowmanLost = 0;
+        defKnightLost = 0;
+        defLancerLost = 0;
+    }
+
     public override void Leave()
     {
+        ResetLosses();
         gameController.p1.EmptyArmyList();
         gameController.p1.UpdateArmy();
         gameController.p1.UpdateArmyPower();

@@ -5,8 +5,10 @@ public class Initialization : State
 {
     private StateMachine stateMachine;
     private GameController gameController;
-
     private TextController textController;
+
+    public GameObject palace;
+    public GameObject incomeAnimation;
 
     public override void Enter()
     {
@@ -38,6 +40,7 @@ public class Initialization : State
             textController.UpdateP2Money();
             textController.UpdateBannerP2();
         }
+        Instantiate(incomeAnimation, palace.transform.position, Quaternion.identity);
         stateMachine.SetState(StateID.Govern);
     }
 

@@ -9,6 +9,13 @@ public class Train : State {
     private TextController textController;
 
     public GameObject barracks;
+    public GameObject moneyAnimation;
+
+    public GameObject peasantMoneyAnimation;
+    public GameObject footmanMoneyAnimation;
+    public GameObject bowmanMoneyAnimation;
+    public GameObject knightMoneyAnimation;
+    public GameObject lancerMoneyAnimation;
 
     public int peasantTrainCost;
     public int footmanTrainCost;
@@ -71,6 +78,7 @@ public class Train : State {
                 textController.UpdateP1Money();
                 textController.UpdateBannerP1();
                 gameController.p1.UpdateArmy();
+                Instantiate(moneyAnimation, peasantMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -82,6 +90,7 @@ public class Train : State {
                 textController.UpdateP2Money();
                 textController.UpdateBannerP2();
                 gameController.p2.UpdateArmy();
+                Instantiate(moneyAnimation, peasantMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         UpdateBarracksInfo();
@@ -98,6 +107,7 @@ public class Train : State {
                 textController.UpdateP1Money();
                 textController.UpdateBannerP1();
                 gameController.p1.UpdateArmy();
+                Instantiate(moneyAnimation, footmanMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -109,6 +119,7 @@ public class Train : State {
                 textController.UpdateP2Money();
                 textController.UpdateBannerP2();
                 gameController.p2.UpdateArmy();
+                Instantiate(moneyAnimation, footmanMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         UpdateBarracksInfo();
@@ -125,6 +136,7 @@ public class Train : State {
                 textController.UpdateP1Money();
                 textController.UpdateBannerP1();
                 gameController.p1.UpdateArmy();
+                Instantiate(moneyAnimation, bowmanMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -136,6 +148,7 @@ public class Train : State {
                 textController.UpdateP2Money();
                 textController.UpdateBannerP2();
                 gameController.p2.UpdateArmy();
+                Instantiate(moneyAnimation, bowmanMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         UpdateBarracksInfo();
@@ -152,6 +165,7 @@ public class Train : State {
                 textController.UpdateP1Money();
                 textController.UpdateBannerP1();
                 gameController.p1.UpdateArmy();
+                Instantiate(moneyAnimation, knightMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -163,6 +177,7 @@ public class Train : State {
                 textController.UpdateP2Money();
                 textController.UpdateBannerP2();
                 gameController.p2.UpdateArmy();
+                Instantiate(moneyAnimation, knightMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         UpdateBarracksInfo();
@@ -179,6 +194,7 @@ public class Train : State {
                 textController.UpdateP1Money();
                 textController.UpdateBannerP1();
                 gameController.p1.UpdateArmy();
+                Instantiate(moneyAnimation, lancerMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         else if (gameController.playerTurn == 2)
@@ -190,6 +206,7 @@ public class Train : State {
                 textController.UpdateP2Money();
                 textController.UpdateBannerP2();
                 gameController.p2.UpdateArmy();
+                Instantiate(moneyAnimation, lancerMoneyAnimation.transform.position, Quaternion.identity);
             }
         }
         UpdateBarracksInfo();
