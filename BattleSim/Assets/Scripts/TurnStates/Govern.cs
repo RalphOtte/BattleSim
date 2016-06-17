@@ -9,6 +9,7 @@ public class Govern : State
     private TextController textController;
 
     public int winningPlayer;
+    public bool gameOver;
 
     public GameObject townScreen;
     public GameObject banner;
@@ -41,16 +42,23 @@ public class Govern : State
         gameController = GetComponent<GameController>();
         textController = GetComponent<TextController>();
         Debug.Log("Entering Govern Phase");
-        townScreenActive = true;
-        townScreen.SetActive(true);
-        endTurnButtonActive = true;
-        EndTurnButton.SetActive(true);
-        giveUpButtonActive = true;
-        giveUpButton.SetActive(true);
+        Act();
     }
 
     public override void Act()
     {
+        if (gameOver == true)
+        {
+            GameOver();
+        }
+        else {
+            townScreenActive = true;
+            townScreen.SetActive(true);
+            endTurnButtonActive = true;
+            EndTurnButton.SetActive(true);
+            giveUpButtonActive = true;
+            giveUpButton.SetActive(true);
+        }
     }
 
     public override void Reason()
@@ -172,7 +180,6 @@ public class Govern : State
 
     public void GameOver()
     {
-        SwitchTownScreen();
         gameOverScreen.SetActive(true);
     }
 

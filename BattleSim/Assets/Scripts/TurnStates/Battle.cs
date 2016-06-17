@@ -207,7 +207,7 @@ public class Battle : State
     void BattleSequence()
     {
         //Debug.Log(defTotalPower + "DefTot" + atkList[0] + "atklist");
-        if (defTotalPower > atkList[0] && atkList.Count >= 0)
+        if (atkList.Count >= 0 && defTotalPower > atkList[0])
         {
             Debug.Log("Attack Battle Sequence");
             int randomIndex = Random.Range(0, atkList.Count);
@@ -217,25 +217,25 @@ public class Battle : State
             //Remove from list
             if (attackingPlayer == 1)
             {
-                if (randomIndexRealValue == gameController.p1.peasantHealth)
+                if (randomIndexRealValue >= gameController.p1.peasantHealth)
                 {
                     atkPeasantLost++;
                 }
-                else if (randomIndexRealValue == gameController.p1.footmanHealth) { atkFootmanLost++; }
-                else if (randomIndexRealValue == gameController.p1.bowmanHealth) { atkBowmanLost++; }
-                else if (randomIndexRealValue == gameController.p1.knightHealth) { atkKnightLost++; }
-                else if (randomIndexRealValue == gameController.p1.lancerHealth) { atkLancerLost++; }
+                else if (randomIndexRealValue >= gameController.p1.footmanHealth) { atkFootmanLost++; }
+                else if (randomIndexRealValue >= gameController.p1.bowmanHealth) { atkBowmanLost++; }
+                else if (randomIndexRealValue >= gameController.p1.knightHealth) { atkKnightLost++; }
+                else if (randomIndexRealValue >= gameController.p1.lancerHealth) { atkLancerLost++; }
             }
             else if (attackingPlayer == 2)
             {
-                if (randomIndexRealValue == gameController.p2.peasantHealth)
+                if (randomIndexRealValue >= gameController.p2.peasantHealth)
                 {
                     atkPeasantLost++;
                 }
-                else if (randomIndexRealValue == gameController.p2.footmanHealth) { atkFootmanLost++; }
-                else if (randomIndexRealValue == gameController.p2.bowmanHealth) { atkBowmanLost++; }
-                else if (randomIndexRealValue == gameController.p2.knightHealth) { atkKnightLost++; }
-                else if (randomIndexRealValue == gameController.p2.lancerHealth) { atkLancerLost++; }
+                else if (randomIndexRealValue >= gameController.p2.footmanHealth) { atkFootmanLost++; }
+                else if (randomIndexRealValue >= gameController.p2.bowmanHealth) { atkBowmanLost++; }
+                else if (randomIndexRealValue >= gameController.p2.knightHealth) { atkKnightLost++; }
+                else if (randomIndexRealValue >= gameController.p2.lancerHealth) { atkLancerLost++; }
             }
                 
         }
@@ -249,25 +249,25 @@ public class Battle : State
             atkTotalPower -= randomIndexRealValue;
             if (attackingPlayer == 1)
             {
-                if (randomIndexRealValue == gameController.p2.peasantHealth)
+                if (randomIndexRealValue >= gameController.p2.peasantHealth)
                 {
                     defPeasantLost++;
                 }
-                else if (randomIndexRealValue == gameController.p2.footmanHealth) { defFootmanLost++; }
-                else if (randomIndexRealValue == gameController.p2.bowmanHealth) { defBowmanLost++; }
-                else if (randomIndexRealValue == gameController.p2.knightHealth) { defKnightLost++; }
-                else if (randomIndexRealValue == gameController.p2.lancerHealth) { defLancerLost++; }
+                else if (randomIndexRealValue >= gameController.p2.footmanHealth) { defFootmanLost++; }
+                else if (randomIndexRealValue >= gameController.p2.bowmanHealth) { defBowmanLost++; }
+                else if (randomIndexRealValue >= gameController.p2.knightHealth) { defKnightLost++; }
+                else if (randomIndexRealValue >= gameController.p2.lancerHealth) { defLancerLost++; }
             }
             else if (attackingPlayer == 2)
             {
-                if (randomIndexRealValue == gameController.p1.peasantHealth)
+                if (randomIndexRealValue >= gameController.p1.peasantHealth)
                 {
                     defPeasantLost++;
                 }
-                else if (randomIndexRealValue == gameController.p1.footmanHealth) { defFootmanLost++; }
-                else if (randomIndexRealValue == gameController.p1.bowmanHealth) { defBowmanLost++; }
-                else if (randomIndexRealValue == gameController.p1.knightHealth) { defKnightLost++; }
-                else if (randomIndexRealValue == gameController.p1.lancerHealth) { defLancerLost++; }
+                else if (randomIndexRealValue >= gameController.p1.footmanHealth) { defFootmanLost++; }
+                else if (randomIndexRealValue >= gameController.p1.bowmanHealth) { defBowmanLost++; }
+                else if (randomIndexRealValue >= gameController.p1.knightHealth) { defKnightLost++; }
+                else if (randomIndexRealValue >= gameController.p1.lancerHealth) { defLancerLost++; }
             }
                 
         }
@@ -408,51 +408,38 @@ public class Battle : State
     public void EndBattle()
     {
         CleanTroopCounts();
-        if (attackingPlayer == 1)
+        if (attackingPlayer == 1 && atkTroopDifferential >=5 &&
+            gameController.p2.peasantCount <= 0 &&
+            gameController.p2.footmanCount <= 0 &&
+            gameController.p2.bowmanCount <= 0 &&
+            gameController.p2.knightCount <= 0 &&
+            gameController.p2.lancerCount <= 0)
         {
-            if (gameController.p1.peasantCount >= 0 &&
-                gameController.p1.footmanCount >= 0 &&
-                gameController.p1.bowmanCount >= 0 &&
-                gameController.p1.knightCount >= 0 &&
-                gameController.p1.lancerCount >= 0)
-            {
-                govern.EndTurn();
-            }
-            else if (gameController.p2.peasantCount >= 0 &&
-                    gameController.p2.footmanCount >= 0 &&
-                    gameController.p2.bowmanCount >= 0 &&
-                    gameController.p2.knightCount >= 0 &&
-                    gameController.p2.lancerCount >= 0)
-            {
-                govern.winningPlayer = 1;
-                govern.GameOver();
-            }
-
+            govern.winningPlayer = 1;
+            govern.gameOver = true;
         }
-        else if (attackingPlayer == 2)
+        else if (attackingPlayer == 2 && atkTroopDifferential >= 5 &&
+                gameController.p1.peasantCount <= 0 &&
+                gameController.p1.footmanCount <= 0 &&
+                gameController.p1.bowmanCount <= 0 &&
+                gameController.p1.knightCount <= 0 &&
+                gameController.p1.lancerCount <= 0)
         {
-            if (gameController.p2.peasantCount >= 0 &&
-                gameController.p2.footmanCount >= 0 &&
-                gameController.p2.bowmanCount >= 0 &&
-                gameController.p2.knightCount >= 0 &&
-                gameController.p2.lancerCount >= 0)
-            {
-                govern.EndTurn();
-            }
-            else if (gameController.p1.peasantCount >= 0 &&
-                    gameController.p1.footmanCount >= 0 &&
-                    gameController.p1.bowmanCount >= 0 &&
-                    gameController.p1.knightCount >= 0 &&
-                    gameController.p1.lancerCount >= 0)
-            {
-                govern.winningPlayer = 2;
-                govern.GameOver();
-            }
+            govern.winningPlayer = 2;
+            govern.gameOver = true;
         }
+        govern.EndTurn();
     }
 
-    void ResetLosses()
+    void ResetBattleState()
     {
+        attackingPlayer = 0;
+        defendingPlayer = 0;
+        atkTotalPower = 0;
+        defTotalPower = 0;
+        atkSequenceDone = false;
+        defSequenceDone = false;
+
         atkPeasantLost = 0;
         atkFootmanLost = 0;
         atkBowmanLost = 0;
@@ -468,7 +455,7 @@ public class Battle : State
 
     public override void Leave()
     {
-        ResetLosses();
+        ResetBattleState();
         gameController.p1.EmptyArmyList();
         gameController.p1.UpdateArmy();
         gameController.p1.UpdateArmyPower();

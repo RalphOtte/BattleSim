@@ -6,6 +6,7 @@ public class Initialization : State
     private StateMachine stateMachine;
     private GameController gameController;
     private TextController textController;
+    private Govern govern;
 
     public GameObject palace;
     public GameObject incomeAnimation;
@@ -15,7 +16,32 @@ public class Initialization : State
         stateMachine = GetComponent<StateMachine>();
         gameController = GetComponent<GameController>();
         textController = GetComponent<TextController>();
+        govern = GetComponent<Govern>();
+        CheckGameOver();
         Debug.Log("Entering Turn Initialization Phase");
+        
+        stateMachine.SetState(StateID.Govern);
+    }
+
+    public override void Act()
+    {
+    }
+
+    public override void Reason()
+    {
+    }
+
+    void CheckGameOver()
+    {
+        if (govern.gameOver == true)
+        {
+            stateMachine.SetState(StateID.Govern);
+        }
+        else { AddIncome(); }
+    }
+
+    void AddIncome()
+    {
         if (gameController.playerTurn == 1)
         {
             gameController.p1.money += gameController.p1.palaceCurrentIncome;
@@ -28,7 +54,7 @@ public class Initialization : State
             textController.UpdateP1Money();
             textController.UpdateBannerP1();
         }
-        else if(gameController.playerTurn == 2)
+        else if (gameController.playerTurn == 2)
         {
             gameController.p2.money += gameController.p2.palaceCurrentIncome;
             gameController.p2.convertInfoIntToString();
@@ -41,15 +67,5 @@ public class Initialization : State
             textController.UpdateBannerP2();
         }
         Instantiate(incomeAnimation, palace.transform.position, Quaternion.identity);
-        stateMachine.SetState(StateID.Govern);
     }
-
-    public override void Act()
-    {
-    }
-
-    public override void Reason()
-    {
-    }
-
 }
