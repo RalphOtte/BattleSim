@@ -51,21 +51,25 @@ public class Player : MonoBehaviour{
     public int palaceCurrentIncome;
     public int palaceNextIncome;
     public int[] palaceUpgradeCost;
+    public int palaceCurrentUpgradeCost;
     public int[] palaceIncome;
     //Barracks
     public int barracksLevel;
     public int barracksMaxLevel;
     public int[] barracksUpgradeCost;
+    public int barracksCurrentUpgradeCost;
     //Academy
     public int academyLevel;
     public int academyMaxLevel;
     public int[] academyUpgradeCost;
+    public int academyCurrentUpgradeCost;
     //Wall
     public int wallLevel;
     public int wallMaxLevel;
     public int wallCurrentBonus;
     public int wallNextBonus;
     public int[] wallUpgradeCost;
+    public int wallCurrentUpgradeCost;
     public int[] wallBonus;
 
     //Unlocks
@@ -87,14 +91,10 @@ public class Player : MonoBehaviour{
         peasantCount = 10;
         money += startMoney;
         tooltipsEnabled = true;
+        UpdateUpgradeCosts();
         UpdatePalaceIncome();
         UpdateWallBonus();
         UpdateArmy();
-    }
-
-    public void convertInfoIntToString()
-    {
-        moneyString = money.ToString();
     }
 
     public void ToggleTooltips()
@@ -105,6 +105,12 @@ public class Player : MonoBehaviour{
         }else { tooltipsEnabled = true; }
     }
 
+    public void UpdateUpgradeCosts()
+    {
+        palaceCurrentUpgradeCost = palaceUpgradeCost[palaceLevel];
+        barracksCurrentUpgradeCost = barracksUpgradeCost[barracksLevel];
+        wallCurrentUpgradeCost = wallUpgradeCost[wallLevel];
+    }
 
     public void UpdateArmy()
     {
@@ -166,6 +172,11 @@ public class Player : MonoBehaviour{
 
     }
 
+    public void convertInfoIntToString()
+    {
+        moneyString = money.ToString();
+    }
+
     public void UpdateInfoIntToString()
     {
         //Converts all building levels to strings for use in other elements
@@ -174,10 +185,10 @@ public class Player : MonoBehaviour{
         academyLevelText = academyLevel.ToString();
         wallLevelText = wallLevel.ToString();
 
-        palaceUpgradeCostText = palaceUpgradeCost.ToString();
-        barracksUpgradeCostText = barracksUpgradeCost.ToString();
-        academyUpgradeCostText = academyUpgradeCost.ToString();
-        wallUpgradeCostText = wallUpgradeCost.ToString();
+        palaceUpgradeCostText = palaceCurrentUpgradeCost.ToString();
+        barracksUpgradeCostText = barracksCurrentUpgradeCost.ToString();
+        academyUpgradeCostText = academyCurrentUpgradeCost.ToString();
+        wallUpgradeCostText = wallCurrentUpgradeCost.ToString();
     }
 
     public void UpdatePalaceIncome()

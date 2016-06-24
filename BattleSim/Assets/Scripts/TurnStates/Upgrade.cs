@@ -20,9 +20,9 @@ public class Upgrade : State {
         textController = GetComponent<TextController>();
         Debug.Log("Entering Upgrade Phase");
         buildersHut.SetActive(true);
-        UpdateBuildersHutInfo();
         gameController.p1.UpdateInfoIntToString();
         gameController.p2.UpdateInfoIntToString();
+        UpdateBuildersHutInfo();
     }
 
     public override void Act()
@@ -62,6 +62,8 @@ public class Upgrade : State {
                 gameController.p1.money -= gameController.p1.palaceUpgradeCost[gameController.p1.palaceLevel - 1];
                 gameController.p1.palaceLevel++;
                 gameController.p1.UpdatePalaceIncome();
+                gameController.p1.UpdateUpgradeCosts();
+                gameController.p1.UpdateInfoIntToString();
                 Instantiate(moneyAnimation, palaceUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
@@ -73,8 +75,11 @@ public class Upgrade : State {
                 gameController.p2.palaceLevel++;
                 gameController.p2.UpdatePalaceIncome();
                 Instantiate(moneyAnimation, palaceUpgradeAnimation.transform.position, Quaternion.identity);
+                gameController.p2.UpdateUpgradeCosts();
+                gameController.p2.UpdateInfoIntToString();
             }
         }
+        UpdateBuildersHutInfo();
     }
 
     public void UpgradeBarracks()
@@ -88,6 +93,8 @@ public class Upgrade : State {
                 gameController.p1.barracksLevel++;
                 textController.UpdateBarracksProductionP1();
                 Instantiate(moneyAnimation, barracksUpgradeAnimation.transform.position, Quaternion.identity);
+                gameController.p1.UpdateUpgradeCosts();
+                gameController.p1.UpdateInfoIntToString();
             }
         }
         else if (gameController.playerTurn == 2)
@@ -98,8 +105,11 @@ public class Upgrade : State {
                 gameController.p2.barracksLevel++;
                 textController.UpdateBarracksProductionP2();
                 Instantiate(moneyAnimation, barracksUpgradeAnimation.transform.position, Quaternion.identity);
+                gameController.p2.UpdateUpgradeCosts();
+                gameController.p2.UpdateInfoIntToString();
             }
         }
+        UpdateBuildersHutInfo();
     }
 
     public void UpgradeWall()
@@ -112,6 +122,8 @@ public class Upgrade : State {
                 gameController.p1.money -= gameController.p1.wallUpgradeCost[gameController.p1.wallLevel - 1];
                 gameController.p1.wallLevel++;
                 gameController.p1.UpdateWallBonus();
+                gameController.p1.UpdateUpgradeCosts();
+                gameController.p1.UpdateInfoIntToString();
                 Instantiate(moneyAnimation, wallUpgradeAnimation.transform.position, Quaternion.identity);
             }
         }
@@ -123,7 +135,10 @@ public class Upgrade : State {
                 gameController.p2.wallLevel++;
                 gameController.p2.UpdateWallBonus();
                 Instantiate(moneyAnimation, wallUpgradeAnimation.transform.position, Quaternion.identity);
+                gameController.p2.UpdateUpgradeCosts();
+                gameController.p2.UpdateInfoIntToString();
             }
         }
+        UpdateBuildersHutInfo();
     }
 }

@@ -7,6 +7,8 @@ public class Initialization : State
     private GameController gameController;
     private TextController textController;
     private Govern govern;
+    public Player p1;
+    public Player p2;
 
     public GameObject palace;
     public GameObject incomeAnimation;
@@ -17,6 +19,7 @@ public class Initialization : State
         gameController = GetComponent<GameController>();
         textController = GetComponent<TextController>();
         govern = GetComponent<Govern>();
+        UpdatePlayerIncome();
         CheckGameOver();
         Debug.Log("Entering Turn Initialization Phase");
         
@@ -29,6 +32,12 @@ public class Initialization : State
 
     public override void Reason()
     {
+    }
+
+    void UpdatePlayerIncome()
+    {
+        p1.UpdatePalaceIncome();
+        p2.UpdatePalaceIncome();
     }
 
     void CheckGameOver()

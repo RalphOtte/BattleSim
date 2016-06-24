@@ -13,11 +13,10 @@ public enum StateID
     Upgrade = 6,
     Research = 7,
     Battle = 8,
-    BattleResult = 9,
-    EndTurn = 10,
-    Palace = 11,
-    GatheringSQ = 12,
-    Wall = 13
+    EndTurn = 9,
+    Palace = 10,
+    GatheringSQ = 11,
+    Wall = 12
 }
 
 public class GameController : MonoBehaviour
@@ -48,7 +47,6 @@ public class GameController : MonoBehaviour
         stateMachine.AddState(StateID.Upgrade, GetComponent<Upgrade>());
         stateMachine.AddState(StateID.Research, GetComponent<Research>());
         stateMachine.AddState(StateID.Battle, GetComponent<Battle>());
-        stateMachine.AddState(StateID.BattleResult, GetComponent<BattleResult>());
         stateMachine.AddState(StateID.EndTurn, GetComponent<EndTurn>());
         stateMachine.AddState(StateID.Palace, GetComponent<Palace>());
         stateMachine.AddState(StateID.GatheringSQ, GetComponent<GatheringSQ>());
